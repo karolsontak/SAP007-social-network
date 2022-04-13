@@ -1,6 +1,6 @@
-import feed from './pages/feed/feed.js';
-import home from './pages/home/login.js';
-import register from './pages/register/register.js';
+import feed from './Pages/feed/feed.js';
+import login from './Pages/login/login.js';
+import register from './Pages/register/register.js';
 
 const container = document.querySelector('#root');
 
@@ -8,8 +8,8 @@ const container = document.querySelector('#root');
 const redirect = () => {
   document.querySelector('#root').innerHTML = ''; 
   switch (window.location.hash) {
-    case '#home':
-      container.appendChild(home());
+    case '#login':
+      container.appendChild(login());
       break;
     case '#register':
       container.appendChild(register());
@@ -18,7 +18,7 @@ const redirect = () => {
       container.appendChild(feed());
       break;
     default:
-      container.appendChild(home());
+      container.appendChild(login());
   };
 };
 
