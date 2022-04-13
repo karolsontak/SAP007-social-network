@@ -1,13 +1,51 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
+import feed from './pages/feed/index.js';
+import home from './pages/home/index.js';
+import register from './pages/register/index.js';
 
+const container = document.querySelector('#root');
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAZf-VOOI__art51kU5_YzbrS99bPR5NXw",
-  authDomain: "Rede-social-network.firebaseapp.com",
-  projectId: "Rede-social-network",
-  storageBucket: "Rede-social-network.appspot.com",
-  messagingSenderId: "81827701203",
-  appId: "1:81827701203:web:79cefd59735be7c86e0f26",
+// SINGLE PAGE APLICATION
+const redirect = () => {
+  document.querySelector('#root').innerHTML = ''; 
+  switch (window.location.hash) {
+    case '#home':
+      container.appendChild(home());
+      break;
+    case '#register':
+      container.appendChild(register());
+      break;
+    case '#feed':
+      container.appendChild(feed());
+      break;
+    default:
+      container.appendChild(home());
+  };
 };
 
-const app = initializeApp(firebaseConfig);
+const init = () => {
+  window.addEventListener('hashchange', () => {
+    redirect();
+  });
+}
+
+window.addEventListener('load', () => {
+  redirect();
+  init();
+});
+
+// document.addEventListener('DOMContentLoaded', () => {
+//   const loadEl = document.querySelector('#root');
+
+//   try {
+//     getApp();
+//     getAuth().onAuthStateChanged((user) => {
+//       if (user) {
+//         window.location.hash = 'feed';
+//       }
+//     });
+//   } catch (e) {
+//     // eslint-disable-next-line no-console
+//     console.error(e);
+//     loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+//   }
+// })
