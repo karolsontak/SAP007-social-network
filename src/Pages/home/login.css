@@ -1,0 +1,236 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background-size: cover;
+    background-color: #1e1e1eee;
+  }
+  
+  .container {
+    display: inline-block;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    height: 30vw;
+    padding: 10px;
+  }
+  
+  .box {
+    width: 80%;
+    box-shadow: inset 0 0 1em black, 0 0 2em black;
+    border-radius: 15px;
+    position: absolute;
+    top: 13%;
+    left: 5%;
+    padding: 5%;
+  }
+  
+  .banner {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10%;
+  }
+  
+  img {
+    width: 155px;
+  }
+  
+  .title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .title {
+    font-size: 25pt;
+    align-items: center;
+  }
+  
+  .subtitle {
+    font-size: 15pt;
+    align-items: center;
+  }
+  
+  .input {
+    width: 250px;
+    height: 40px;
+    border: none;
+    font-size: 12pt;
+    padding: 2%;
+    border-radius: 5px;
+    background-color: rgba(52, 52, 52, 0.5);
+    margin-top: 2%;
+    cursor: pointer;
+  }
+  
+  .form {
+    text-align: center;
+    margin-top: 5%;
+  }
+  
+  .buttons {
+    width: 40%;
+    height: 40px;
+    margin-top: 3%;
+    cursor: pointer;
+    border: none;
+    border-radius: 15px;
+    font-size: 12pt;
+    font-weight: bolder;
+  }
+  .option {
+    color: #fefefe;
+  }
+  
+  .signin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .signin p {
+    font-size: 15pt;
+    font-weight: bolder;
+    margin: 5% 0 5% 0;
+  }
+  
+  .signin-button {
+    border: solid 1px #000;
+    transition: 0.5s ease-in-out;
+    color: #fefefe;
+    background: #e335dc;
+  }
+  
+  .signin-button:hover {
+    color: #fff;
+  }
+  
+  .signup-button {
+    background-color: rgba(0, 0, 255, 0);
+    border: none;
+    cursor: pointer;
+    margin-top: -1%;
+    color: #f3f3f3;
+    width: 103%;
+    font-size: 15pt;
+    font-weight: lighter;
+  }
+  
+  span {
+    color: #00d092;
+    transition: 0.5s ease-in-out;
+  }
+  
+  .google-button {
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 5% 5% 5%;
+    background-color: #000;
+    border: solid 1px #000;
+    transition: 0.5s ease-in-out;
+    font-weight: 700;
+    color: #ffff;
+  }
+  
+  .google-button:hover {
+    background-color: #ffff;
+    color: #000;
+  }
+  
+  .google-icon-btn {
+    width: 8%;
+  }
+  
+  /* MEDIA CELULAR */
+  @media screen and (min-width: 767px) {
+    .box {
+      width: 50%;
+      left: 25%;
+    }
+  }
+  
+  /* MEDIA TABLET */
+  @media screen and (min-width: 1000px) {
+    .box {
+      width: 40%;
+      left: 31%;
+    }
+    img {
+      width: 155px;
+    }
+  }
+  
+  /* TELAS GRANDES */
+  @media screen and (min-width: 1366px) {
+    body {
+      background-size: contain;
+      background-position: top;
+      overflow: hidden;
+    }
+    .left-imag {
+      width: 50vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding-left: 5%;
+    }
+    .box {
+      width: 500px;
+      box-shadow: inset 0 0 1em black, 0 0 2em black;
+      border-radius: 15px;
+      position: absolute;
+      top: 13%;
+      left: 60%;
+      padding: 5%;
+      height: 550px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .container {
+      display: inline-block;
+      align-items: center;
+      width: 300px;
+      max-width: 700px;
+      padding: 10px;
+      position: absolute;
+      top: 7%;
+    }
+  
+    img {
+      width: 70%;
+    }
+  
+    .title-container {
+      margin-left: 5%;
+    }
+  
+    .title {
+      font-size: 32px;
+    }
+  
+    .subtitle {
+      font-size: 1em;
+    }
+  
+    .input {
+      width: 270px;
+    }
+  
+    .signin-button {
+      width: 40%;
+    }
+  }
+  @media screen and (max-width: 992px) {
+    .left-imag{
+      display: none;
+    }
+  }

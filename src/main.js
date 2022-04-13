@@ -1,6 +1,6 @@
-import feed from './pages/feed/index.js';
-import home from './pages/home/index.js';
-import register from './pages/register/index.js';
+import feed from './pages/feed/feed.js';
+import home from './pages/home/login.js';
+import register from './pages/register/register.js';
 
 const container = document.querySelector('#root');
 
