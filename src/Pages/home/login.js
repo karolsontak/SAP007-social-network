@@ -3,9 +3,7 @@ import { signIn, signInGoogle } from "/firebase.js";
 export default function Login() {
   const login = document.createElement("div");
   login.innerHTML = `   
-  <div>
-    <img src="../../img/investment.svg" class="left-imag" alt="animação"/>
-  </div>
+ 
       <main class="box">
           <div class="container">
   
@@ -41,7 +39,6 @@ export default function Login() {
       
       `;
 
- 
   const signUpButton = login.querySelector("#signup-button");
   const signInButton = login.querySelector("#signin-button");
   const googleBtn = login.querySelector('#google-button');
