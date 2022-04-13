@@ -5,7 +5,7 @@ export default function Timeline() {
         <div class="banner">
             <div class="title-container">
                 <h1 class="title">FEED</h1>
-                <h3 class="subtitle">Feed</h3>
+                <h3 class="subtitle">Test</h3>
             </div>
         </div>
 
