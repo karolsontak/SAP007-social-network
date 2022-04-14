@@ -1,14 +1,36 @@
-export default function Timeline() {
-    const timeline = document.createElement('div');
-    timeline.innerHTML = `   
-        <div class="banner-menu">
-        <div class="banner">
-            <div class="title-container">
-                <h1 class="title">FEED</h1>
-                <h3 class="subtitle">Test</h3>
-            </div>
+export default function Feed() {
+  const feed = document.createElement("div");
+  feed.classList.add("post-and-coment")
+  feed.innerHTML = `  
+ <img id="btn-modal" class="btn-modal" alt="adicionar post" src="./img/add (1).png">
+  <div id="post" class="modal">
+    <section class="post-container">
+        <textarea class="textarea-style" rows="5" cols="35" maxlength="180" placeholder="Fale mais sobre seus investimentos."></textarea>
+        <img src="./img/fechar (1).png" alt="Fechar Post" class="close">
+    </section>
+    <div class="post-btn-area">
+        <button type="submit" id="btn-post" class="feed-btn">Postar</button>
         </div>
+  </div>
 
         `;
-    return timeline;
+    const btn = feed.querySelector('#btn-modal');
+    const modalPost = feed.querySelector('#post');
+    const btnPost = feed.querySelector('#btn-post');
+    const close = feed.querySelector('.close');
+
+    btn.onclick = function() {
+        modalPost.style.display = "block";
+        btn.style.display = "none";
+    }
+    close.onclick = function() {
+        modalPost.style.display = "none";
+        btn.style.display = "block";
+      }
+    btnPost.onclick = function() {
+        modalPost.style.display = "none";
+        btn.style.display = "block";
+    }
+
+  return feed;
 }

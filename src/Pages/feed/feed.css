@@ -1,0 +1,21 @@
+.post-container{
+  display: flex;
+  align-items: flex-start;
+}
+.modal{
+    display: none;
+}
+.btn-modal{
+    /* background-position: 0px -674px; */
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  cursor: pointer;
+}
+.close{
+  width: 30px;
+  height: 30px; 
+  cursor: pointer;
+}
