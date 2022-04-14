@@ -4,29 +4,29 @@ export default function Login() {
   const login = document.createElement("div");
   login.classList.add("login-box")
   login.innerHTML = `   
-       <main class="box">
+      <main class="box">
         <div class="banner">
           <img class="logo" src="../../img/LOGO.png" alt="Logo" />
           <p class="tittle-banner">LOGIN</p>
         </div>
               
         <form class="login-form">
-          <input class="login-input" id="email" type="email" placeholder="E-mail" required>
-          <input class="login-input" id="password" type="password" placeholder="Senha" required>
+          <input class="login-input" id="email" type="email" placeholder="E-MAIL" required>
+          <input class="login-input" id="password" type="password" placeholder="SENHA" required>
           <p id="loginError" class="error-message"></p>
         </form>
   
         <div class="signin">
-          <button id="signin-button" class="signin-button btn">Entrar</button>
+          <button id="signin-button" class="signin-button btn">ENTRAR</button>
           <p class="or"> OU </p>
           <button id="google-button" class="google-button btn">
           <img class="google-icon-btn" src="../../img/google.png" alt="Ícone do Google"/>
-          Entrar com Conta Google</button>
+          CONTINUAR COM GOOGLE</button>
         </div>  
         <div class="signup">
-          <button id="signup-button" class="signup-button btn"> Não possui cadastro? 
-          <p class="click-here">Clique aqui</p> </button>
-        </div>
+          <button id="signup-button" class="signup-button btn"> Não tem uma conta? 
+          <p class="click-here">Criar conta</p> </button>
+        </div> 
       </main>
       `;
 

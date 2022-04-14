@@ -12,6 +12,7 @@
 login-box
 box
 banner
+logo
 tittle-banner
 
 login-form
@@ -28,51 +29,54 @@ signup
 signup-button
 click-here
 */
-
   .box {
     display: inline-flex;
     align-items: center;
-    width: 85%;
+    width: 100%;
     height: 85%;
-    box-shadow: inset 0 0 1em black, 0 0 2em black;
-    border-radius: 15px;
+    flex-direction: column;
   }
 
   .banner {
     display: flex;
-    width: 80%;
+    flex-direction: column;
+    width: 75%;
     justify-content: space-between;
-    margin-bottom: 10%;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
+    margin-top: 3%;
   }
   
   .logo{
-    width: 80%;
+    width: 75%;
     align-items: center;
   }
     
   .tittle-banner {
-    margin-top: 15%;
+    margin-top: 10%;
     font-size: 24px;
     font-weight: bold;
+    color: white;
   }
 
   .login-input {
     width: 250px;
     height: 40px;
     border: none;
-    font-size: 12pt;
+    font-size: 14px;
     padding: 2%;
     border-radius: 5px;
-    box-shadow: 10px 5px 5px black;
+    box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.507);
     background-color: rgba(52, 52, 52, 0.5);
     margin: 2% 0;
-    cursor: pointer;
+    cursor:text;
+    color: white;
   }
   
   .login-form {
     text-align: center;
-    margin-top: 5%;
+    margin-top: 3%;
   }
   
   .btn {
@@ -81,7 +85,7 @@ click-here
     margin-top: 3%;
     cursor: pointer;
     border: none;
-    border-radius: 15px;
+    border-radius: 8px;
     font-size: 12px;
     font-weight: bolder;
   }
@@ -90,59 +94,47 @@ click-here
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 3%;
   }
 
   .signin-button {
     transition: 0.5s ease-in-out;
     color: #fefefe;
     background: #e335dc;
-    font-size: 18px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.507);
+    font-size: 14px;
+    margin-top: 5%;
+    font-weight:600;
+
   }
   
   .signin-button:hover {
     color: #fff;
   }
+
+  .error-message {
+    color: white;
+  }
   
   .or {
     font-size: 18px;
     font-weight: bolder;
-    margin: 10% 0 5% 0;
+    margin: 5% 0 2% 0;
     color: #fefefe;
 
   }
-  
-  .signup-button {
-    margin-top: 30%;
-    background-color: rgba(0, 0, 255, 0);
-    border: none;
-    cursor: pointer;
-    color: #f3f3f3;
-    width: 103%;
-    font-size: 18px;
-    font-weight: lighter;
-  }
-  
-  .click-here {
-    color: #00d092;
-    transition: 0.5s ease-in-out;
-  }
-  
-  .error-message {
-    color: white;
-  }
 
   .google-button {
-    width: 90%;
+    width: 70%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    background-color: #000;
-    border: solid 1px #000;
+    background-color: rgba(52, 52, 52, 0.5);
     transition: 0.5s ease-in-out;
     font-weight: bold;
     color: #ffff;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight:400;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.507);
   }
   
   .google-button:hover {
@@ -153,13 +145,20 @@ click-here
   .google-icon-btn {
     width: 8%;
   }
+  .signup-button {
+    margin-top: 20%;
+    background-color: rgba(0, 0, 255, 0);
+    border: none;
+    cursor: pointer;
+    color: #f3f3f3;
+    width: 100%;
+    font-size: 16px;
+    font-weight:400;
+  }
   
-  /* MEDIA CELULAR */
-  @media screen and (min-width: 767px) {
-    .box {
-      width: 50%;
-      left: 25%;
-    }
+  .click-here {
+    color: #00d092;
+    transition: 0.5s ease-in-out;
   }
   
   /* MEDIA TABLET */
@@ -181,85 +180,29 @@ click-here
       }
 
       .box {
-      width: 300px;
+      width: 280px;
       box-shadow: inset 0 0 1em black, 0 0 2em black;
-      border-radius: 15px;
+      border-radius: 15px; 
       position: absolute;
       left: 60%;
       padding: 5%;
-      height: 600px;
+      height: 500px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-top: 5%;
     }
-  }
 
-  /* TELAS GRANDES 
-  @media screen and (min-width: 1366px) {
-    body {
-      background-size: contain;
-      background-position: top;
-      overflow: hidden;
+    .banner {
+      margin-top: -10%;
     }
-    .left-imag {
-      width: 50vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
+
+    .logo{
+      width: 90%;
       align-items: center;
-      flex-direction: column;
-      padding-left: 5%;
+      margin-bottom: 2px;
     }
-    .box {
-      width: 500px;
-      box-shadow: inset 0 0 1em black, 0 0 2em black;
-      border-radius: 15px;
-      position: absolute;
-      top: 13%;
-      left: 60%;
-      padding: 5%;
-      height: 550px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .container {
-      display: inline-block;
-      align-items: center;
-      width: 300px;
-      max-width: 700px;
-      padding: 10px;
-      position: absolute;
-      top: 7%;
-    }
-  
-    img {
-      width: 70%;
-    }
-  
-    .title-container {
-      margin-left: 5%;
-    }
-  
-    .title {
-      font-size: 32px;
-    }
-  
-    .subtitle {
-      font-size: 1em;
-    }
-  
-    .input {
-      width: 270px;
-    }
-  
-    .signin-button {
-      width: 40%;
-    }
+    .google-button {
+      width: 90%;
   }
-  @media screen and (max-width: 992px) {
-    .left-imag{
-      display: none;
-    }
-  }*/
+}
