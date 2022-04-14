@@ -2,11 +2,11 @@ export default function Feed() {
   const feed = document.createElement("div");
   feed.classList.add("post-and-coment")
   feed.innerHTML = `  
- <img id="btn-modal" class="btn-modal" alt="adicionar post" src="./img/add (1).png">
+ <img id="btn-modal" class="btn-modal" alt="adicionar post" src="./img/add.png">
   <div id="post" class="modal">
     <section class="post-container">
         <textarea class="textarea-style" rows="5" cols="35" maxlength="180" placeholder="Fale mais sobre seus investimentos."></textarea>
-        <img src="./img/fechar (1).png" alt="Fechar Post" class="close">
+        <img src="./img/fechar.png" alt="Fechar Post" class="close">
     </section>
     <div class="post-btn-area">
         <button type="submit" id="btn-post" class="feed-btn">Postar</button>
