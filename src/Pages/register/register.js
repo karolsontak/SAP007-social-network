@@ -2,31 +2,26 @@ import { registerUser, saveUserUpdate } from "/firebase.js";
 
 export default function Register() {
   const register = document.createElement("div");
+  register.classList.add("register-box")
   register.innerHTML = `
       <main class="box">
-          <div class="container">
-            <div class="banner">
-                <div class="title-container">
-                    <img class="logo" src="../../img/LOGO.png" alt="Logo"/>
-                    <h3 class="inf">CADASTRO</h3>
-                </div>
-            </div>
-           
-            <section>
-                <form class="form">
-                    <input class="input" id="name" type="name" autocomplete="on" placeholder="Nome Completo" required/>
-                    <input class="input" id="email" type="email" autocomplete="on" placeholder="E-mail" required/>                    
-                    <input class="input" id="password" type="password" autocomplete="on" placeholder="Senha" required/>
-                    <p id="email-error" class="error-message font-work"></p>
-                </form>
-                <button id="signup-button-register" class="buttons register-button">Cadastrar-se</button>
-                <button id="gobackButton" class="goback-button">
-                    <img src="./img/arrow.png" class="seta" alt="Ícone de Seta" width="50" height="50"> 
-                </button>
-            </section>
-          </div>
+        <div class="banner">
+          <img class="logo" src="../../img/LOGO.png" alt="Logo"/>
+          <p class="tittle-banner">CADASTRO</p>
+        </div>
+                
+        <form class="register-form">
+          <input class="register-input" id="name" type="name" placeholder="NOME COMPLETO" required/>
+          <input class="register-input" id="email" type="email" placeholder="E-MAIL" required/>                    
+          <input class="register-input" id="password" type="password" placeholder="SENHA" required/>
+          <p id="email-error" class="error-message"></p>
+        </form>
+
+        <div class="signup">
+          <button id="register-button" class="register-button">CADASTRAR-SE</button>
+          <img src="./img/voltar.png" id="gobackButton" class="goback-img" alt="Ícone de Seta">
+        </div>
       </main>
-      
     `;
 
   const name = register.querySelector("#name");
@@ -41,7 +36,7 @@ export default function Register() {
   });
 
   const signUpButtonRegister = register.querySelector(
-    "#signup-button-register"
+    "#register-button"
   );
   signUpButtonRegister.addEventListener("click", (e) => {
     e.preventDefault();

@@ -3,32 +3,12 @@
     padding: 0;
     font-family: 'Roboto', sans-serif;
   }
+  
   body {
     background-size: cover;
     background-color: #1e1e1eee;
   }
 
-/* 
-login-box
-box
-banner
-logo
-tittle-banner
-
-login-form
-login-input
-error-message
-
-signin
-signin-button
-btn
-or
-google-button
-google-icon-btn
-signup
-signup-button
-click-here
-*/
   .box {
     display: inline-flex;
     align-items: center;
@@ -85,7 +65,7 @@ click-here
     margin-top: 3%;
     cursor: pointer;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     font-size: 12px;
     font-weight: bolder;
   }
@@ -104,7 +84,6 @@ click-here
     font-size: 14px;
     margin-top: 5%;
     font-weight:600;
-
   }
   
   .signin-button:hover {
@@ -120,7 +99,6 @@ click-here
     font-weight: bolder;
     margin: 5% 0 2% 0;
     color: #fefefe;
-
   }
 
   .google-button {
@@ -143,7 +121,7 @@ click-here
   }
   
   .google-icon-btn {
-    width: 8%;
+    width: 7%;
   }
   .signup-button {
     margin-top: 20%;
@@ -160,18 +138,7 @@ click-here
     color: #00d092;
     transition: 0.5s ease-in-out;
   }
-  
-  /* MEDIA TABLET */
-  @media screen and (min-width: 1000px) {
-    .box {
-      width: 40%;
-      left: 31%;
-    }
-    img {
-      width: 155px;
-    }
-  }
-  
+   
   /* TELAS GRANDES */
     @media screen and (min-width: 1366px) {
       body {

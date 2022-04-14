@@ -23,7 +23,7 @@ export default function Login() {
           <img class="google-icon-btn" src="../../img/google.png" alt="Ícone do Google"/>
           CONTINUAR COM GOOGLE</button>
         </div>  
-        <div class="signup">
+        <div>
           <button id="signup-button" class="signup-button btn"> Não tem uma conta? 
           <p class="click-here">Criar conta</p> </button>
         </div> 
