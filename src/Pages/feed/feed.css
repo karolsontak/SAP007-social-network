@@ -14,10 +14,10 @@ body {
 }
 
 .post-container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  display: grid;
+  justify-items: center;
 }
+
 
 .add-post {
   width: 60px;
@@ -26,6 +26,7 @@ body {
   bottom: 15px;
   right: 15px;
   cursor: pointer;
+
 }
 
 .post-textarea {
@@ -54,10 +55,16 @@ body {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.507);
   font-size: 14px;
   font-weight:600;
+  position: relative;
+  right: 120px;
+ 
 }
 
 .close-post {
   width: 30px;
   height: 30px; 
   cursor: pointer;
+  position: relative;
+  left: 190px;
+  top: 30px;
 }
