@@ -6,7 +6,7 @@ const container = document.querySelector('#root');
 
 // SINGLE PAGE APLICATION
 const redirect = () => {
-  document.querySelector('#root').innerHTML = ''; 
+  container.innerHTML = ''; 
   switch (window.location.hash) {
     case '#login':
       container.appendChild(login());

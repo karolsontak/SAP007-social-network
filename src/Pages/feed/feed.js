@@ -2,13 +2,20 @@ export default function Feed() {
   const feed = document.createElement("div");
   feed.classList.add("post-feed")
   feed.innerHTML = `  
-      <div class='perfil-container'>
-        <div class='perfil-style'>
-        <img class='foto-style' src=''>
-        <h1 id='usuario'class='text-style'></h1>
-        <p class='text-style'></p>
+      <div class="perfil-container">
+        <div class="perfil-style">
+        <img class="foto-style" src=''>
+        <p id="usuario" class="text-style"></p>
+        <p class="text-style"></p>
       </div>
-  
+      
+      <div class="menu">
+        <img id="home-btn" class="home-btn" alt="menu home" src="./img/home.png">
+        <img id="perfil-btn" class="perfil-btn" alt="menu perfil" src="./img/perfil.png">
+        <img id="notification-btn" class="notification-btn" alt="menu notification" src="./img/notification.png">
+        <img id="logout-btn" class="logout-btn" alt="menu logout" src="./img/logout.png">
+      </div>
+
       <img id="add-post" class="add-post" alt="adicionar post" src="./img/add.png">
       
       <section id="post" class="post">
