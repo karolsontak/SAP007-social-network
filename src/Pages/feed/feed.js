@@ -27,24 +27,29 @@ export default function Feed() {
       </section>
         `;
 
-
-    const btn = feed.querySelector('#add-post');
+    const addPost = feed.querySelector('#add-post');
+    const homeBtn = feed.querySelector('#home-btn');
     const modalPost = feed.querySelector('#post');
-    const btnPost = feed.querySelector('#post-btn');
-    const close = feed.querySelector('#close-post');
+    const postBtn = feed.querySelector('#post-btn');
+    const closePost = feed.querySelector('#close-post');
 
-    btn.onclick = function() {
+    addPost.onclick = function() {
         modalPost.style.display = "block";
-        btn.style.display = "none";
+        addPost.style.display = "none";
     }
-    close.onclick = function() {
+    closePost.onclick = function() {
         modalPost.style.display = "none";
-        btn.style.display = "block";
+        addPost.style.display = "block";
       }
-    btnPost.onclick = function() {
+    postBtn.onclick = function() {
         modalPost.style.display = "none";
-        btn.style.display = "block";
+        addPost.style.display = "block";
     }
+
+    homeBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.hash = "feed";
+    });
 
   return feed;
 }
