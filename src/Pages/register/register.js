@@ -19,7 +19,7 @@ export default function Register() {
 
         <div class="signup">
           <button id="register-button" class="register-button">CADASTRAR-SE</button>
-          <img src="./img/voltar.png" id="gobackButton" class="goback-img" alt="Ícone de Seta">
+          <img src="./img/goback.png" id="gobackButton" class="goback-img" alt="Ícone de Seta">
         </div>
       </main>
     `;

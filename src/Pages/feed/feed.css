@@ -14,7 +14,7 @@ body {
   z-index: 1;
 }
 
-.post-container {
+.post-container, .my-posts-container, .timeline-container {
   display: grid;
   justify-items: center;
 }
@@ -59,7 +59,6 @@ body {
   border-radius: 5px;
   box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.507);
   background-color: rgba(52, 52, 52, 0.5);
-  margin: 1% 0;
   cursor:text;
   color: white;
 }
@@ -88,6 +87,46 @@ body {
   position: relative;
   left: 165px;
   top: 20px;
+}
+
+.my-post-textarea {
+  width: 280px;
+  height: 70%;
+  border: none;
+  font-size: 14px;
+  padding: 2%;
+  border-radius: 5px;
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.507);
+  background-color: rgba(52, 52, 52, 0.5);
+  cursor:text;
+  color: white;
+  margin-bottom: 3%;
+}
+
+.timeline-textarea {
+  width: 280px;
+  height: 90%;
+  border: none;
+  font-size: 14px;
+  padding: 2%;
+  border-radius: 5px;
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.507);
+  background-color: rgba(52, 52, 52, 0.5);
+  cursor:text;
+  color: white;
+  margin-top: 3%;
+}
+
+.change-btn {
+  display: inline-flex;
+  margin-top: -5%;
+  margin-left: 60%;
+}
+
+.edit-btn, .delete-btn {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 
 /* TELAS GRANDES */

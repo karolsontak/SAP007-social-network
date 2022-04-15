@@ -1,6 +1,6 @@
 export default function Feed() {
   const feed = document.createElement("div");
-  feed.classList.add("post-feed")
+  feed.classList.add("feed-post")
   feed.innerHTML = `  
       <div class="perfil-container">
         <div class="perfil-style">
@@ -20,9 +20,26 @@ export default function Feed() {
       
       <section id="post" class="post">
         <div class="post-container">
-          <img src="./img/fechar.png" alt="Fechar Post" id="close-post" class="close-post">
+          <img src="./img/close.png" alt="Fechar Post" id="close-post" class="close-post">
           <textarea class="post-textarea" rows="5" cols="35" maxlength="180" placeholder="Fale mais sobre seus investimentos."></textarea>
           <button type="submit" id="post-btn" class="post-btn">Postar</button>
+        </div>
+      </section>
+
+      <section id="my-posts" class="my-posts">
+        <div class="my-posts-container">
+          <p class="perfil-name"></p>  
+          <textarea class="post-textarea" rows="5" cols="35" maxlength="180" placeholder="Aqui fica o meu post!"></textarea>            
+          <div class="change-btn">
+            <img id="edit-btn" class="edit-btn" alt="botão editar" src="./img/edit.png">
+            <img id="delete-btn" class="delete-btn" alt="botão deletar" src="./img/trash.png">
+          </div>
+        </div>
+      </section>
+
+      <section id="timeline" class="timeline">
+        <div class="timeline-container">
+          <textarea class="timeline-textarea" rows="5" cols="35" maxlength="180" placeholder="Aqui fica o post de quem seu sigo!"></textarea>
         </div>
       </section>
         `;
