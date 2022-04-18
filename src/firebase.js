@@ -1,26 +1,48 @@
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup,
+  signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup
 } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js";
-//import { collection } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js";
-import { auth } from "/config.js";
+import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js";
+import { auth, db } from "/config.js";
 
-export function registerUser(email, password) {
-  return createUserWithEmailAndPassword(auth, email, password);
+export function registerUser(name, email, password) {
+  return createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    user.updateProfile({
+      displayName: name,
+    });
+    return user;
+  })
+  .catch((error) => {
+    // if (error.code === 'auth/uid-already-exists') {
+    //   emailError.innerHTML = 'E-mail já cadastrado';
+    // } else if (error.code === 'auth/email-already-in-use') {
+    //   emailError.innerHTML = 'E-mail já cadastrado';
+    // } else if (error.code === 'auth/invalid-email') {
+    //   emailError.innerHTML = 'E-mail invalido';
+    // } else {
+    //   emailError.innerHTML = 'Preencha novamente.';
+    // }
+  });
 }
 
 export function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
 
-export function saveUserUpdate(name) {
-  return auth.currentUser
-    .updateProfile({
-      displayName: name,
-    })
-    .then(() => true)
-    .catch((error) => error);
-}
+export const saveUser = () => {
+  const user = auth.currentUser;
+  return user;
+};
+// export function saveUserUpdate(name) {
+//   return auth.currentUser
+//     .updateProfile({
+//       displayName: name,
+//     })
+//     .then(() => true)
+//     .catch((error) => error);
+// }
 
 const provider = new GoogleAuthProvider();
 export const signInGoogle = () => {
@@ -38,6 +60,18 @@ export const signInGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromError(error);
   })
 
+};
+
+export const createPost = async (postText, displayName) => {
+  const postUser = await addDoc(collection(db, 'post'), {
+    name: displayName,
+    data:new Date(),
+    post: postText,
+    like: [],
+  })
+  .then(() => true)
+  .catch((error) => error);
+ return postUser;
 };
 
 // const user = getFirestore(app);
