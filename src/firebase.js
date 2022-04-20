@@ -1,8 +1,8 @@
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup
-} from "https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js";
-import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js";
+  signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
+import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
 import { auth, db } from "/config.js";
 
 export function registerUser(name, email, password) {
@@ -92,3 +92,19 @@ export const createPost = async (postText, displayName) => {
 //   const usersSnapshot = getDocs(collectionUsers);
 //   return usersSnapshot.docs.map(doc => doc.data());
 // }
+
+
+export function stayLoggedIn(uid) {
+  return onAuthStateChanged(auth, (user) => {
+    uid(user !== null);
+  });
+}
+
+export function logout() {
+  auth.signOut().then(() => {
+    alert('Saiu');
+    window.location.hash = '';
+  }).catch(() => {
+    alert('Erro ao fazer logout');
+  });
+}
