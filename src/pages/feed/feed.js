@@ -1,9 +1,13 @@
-import {createPost, getAllPost} from '/firebase.js';
+import {
+  createPost, 
+  getAllPost, 
+  logout,
+} from '/firebase.js';
+
 export default function Feed() {
   const feed = document.createElement("div");
   feed.classList.add("feed-post")
   feed.innerHTML = `  
-      
       <div class="menu">
         <img id="home-btn" class="home-btn" alt="menu home" src="./img/home.png">
         <img id="perfil-btn" class="perfil-btn" alt="menu perfil" src="./img/perfil.png">
@@ -24,7 +28,6 @@ export default function Feed() {
       <section class="post-feed">
         <ul id="container-post"></ul>
       </section>
-
     `;
 
     const addPost = feed.querySelector('#add-post');
@@ -34,21 +37,36 @@ export default function Feed() {
     const closePost = feed.querySelector('#close-post');
     const postFeed = feed.querySelector('#post-textarea');
     const postList = feed.querySelector('#container-post');
+    const logoutBtn = feed.querySelector('#logout-btn');
 
     getAllPost().then(post => {
-      const postCreate = post.map(post => `
-      <li>
-        <div class='ide'> 
-          <p class='name-user'> ${post.displayName} </p>
-          <p class='data-post'> ${post.data} </p>
-        </div>
-        <div class='text-post'>
-          <p class='post-feed'> ${post.post} </p>
-        </div>
-      </li>
-    
-      `).join('')
-      postList.innerHTML = postCreate;
+      const postCreated = post.map(post => `
+        <li class="allposts">
+          <div class='identification'> 
+            <div>
+              <img class='profile-img' src='${post.photo}'>
+            </div>
+            <div class='text-identification'>
+            <p class='username'><b>${post.displayName}</b></p>
+            <p class='data-post'> Postado em ${post.data} </p>
+            </div>
+          </div>
+          <div class='text-post'>
+            <p class='post-print'> ${post.post} </p>
+          </div>
+          <div class='all-btn'> 
+            <div class='like'>
+              <img id="like-post" class="like-post" src="./img/like.png" alt="Botão de like">
+              <p class='like-length'> ${post.like.length} </p>
+            </div>
+            <div class="action-btn">
+              <img id="edit-post" class="edit-post" src="./img/edit.png" alt="Botão de edição">
+              <img id="delete-post" class="delete-post" src="./img/trash.png" alt="Botão de deletar">
+            </div>
+          </div>
+        </li>`
+      ).join('')
+      postList.innerHTML = postCreated;
     })
 
     addPost.onclick = function() {
@@ -70,6 +88,12 @@ export default function Feed() {
       addPost.style.display = "block";
       e.preventDefault();
       createPost(postFeed.value);
+    });
+
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      logout();
+      window.location.hash = "login";
     });
 
   return feed;

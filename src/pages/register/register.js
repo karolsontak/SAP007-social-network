@@ -1,4 +1,4 @@
-import { registerUser} from "/firebase.js";
+import { registerUser } from "/firebase.js";
 
 export default function Register() {
   const register = document.createElement("div");
@@ -6,7 +6,7 @@ export default function Register() {
   register.innerHTML = `
       <main class="box">
         <div class="banner">
-          <img class="logo" src="../../img/LOGO.png" alt="Logo"/>
+          <img class="logo" src="../../img/logo.png" alt="Logo"/>
           <p class="tittle-banner">CADASTRO</p>
         </div>
                 

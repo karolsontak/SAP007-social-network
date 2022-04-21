@@ -1,10 +1,22 @@
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, updateProfile
+  signInWithEmailAndPassword, 
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  onAuthStateChanged, 
+  updateProfile
 } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
-import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
-import { auth, db } from "/config.js";
-
+import { 
+  collection, 
+  addDoc, 
+  getDocs, 
+  doc, 
+  updateDoc, 
+} from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
+import { 
+  auth, 
+  db 
+} from "/config.js";
 
 export const current = () => {
   const user = auth.currentUser;
@@ -29,16 +41,6 @@ export function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
 
-
-// export function saveUserUpdate(name) {
-//   return auth.currentUser
-//     .updateProfile({
-//       displayName: name,
-//     })
-//     .then(() => true)
-//     .catch((error) => error);
-// }
-
 const provider = new GoogleAuthProvider();
 export const signInGoogle = () => {
   return signInWithPopup(auth, provider)
@@ -59,11 +61,13 @@ export const signInGoogle = () => {
 
 export const createPost = async (postText) => {
   const postUser = await addDoc(collection(db, 'post'), {
+    photo: current().photoURL,
     displayName: current().displayName,
     email: current().email,
-    data: new Date(),
+    data: new Date().toLocaleDateString('pt-BR'),
     post: postText,
     like: [],
+    user: current().uid,
   })
   .then(() => true)
   .catch((error) => error);
@@ -76,6 +80,21 @@ export async function getAllPost() {
   const listPost = postSnapshot.docs.map(doc => doc.data());
   return listPost;
 }
+
+export const logout = () => {
+  const logoutUser = auth.signOut();
+  return logoutUser;
+};
+
+
+// export function saveUserUpdate(name) {
+//   return auth.currentUser
+//     .updateProfile({
+//       displayName: name,
+//     })
+//     .then(() => true)
+//     .catch((error) => error);
+// }
 
 // const user = getFirestore(app);
 // export function saveUser (user, email, name) {
@@ -103,11 +122,3 @@ export async function getAllPost() {
 //   });
 // }
 
-// export function logout() {
-//   auth.signOut().then(() => {
-//     alert('Saiu');
-//     window.location.hash = '';
-//   }).catch(() => {
-//     alert('Erro ao fazer logout');
-//   });
-// }

@@ -1,4 +1,7 @@
-import { signIn, signInGoogle } from "/firebase.js";
+import { 
+  signIn, 
+  signInGoogle 
+} from "/firebase.js";
 
 export default function Login() {
   const login = document.createElement("div");
@@ -6,7 +9,7 @@ export default function Login() {
   login.innerHTML = `   
       <main class="box">
         <div class="banner">
-          <img class="logo" src="../../img/LOGO.png" alt="Logo" />
+          <img class="logo" src="../../img/logo.png" alt="Logo" />
           <p class="tittle-banner">LOGIN</p>
         </div>
               
