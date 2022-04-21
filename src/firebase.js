@@ -36,7 +36,6 @@ export function registerUser(name, email, password) {
   });
 }
 
-
 export function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
@@ -48,7 +47,6 @@ export const signInGoogle = () => {
    const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
     const user = result.user;
-
   })
   .catch((error) => {
       const errorCode = error.code;
@@ -56,7 +54,6 @@ export const signInGoogle = () => {
       const email = error.email;
       const credential = GoogleAuthProvider.credentialFromError(error);
   })
-
 };
 
 export const createPost = async (postText) => {
@@ -74,7 +71,7 @@ export const createPost = async (postText) => {
  return postUser;
 };
 
-export async function getAllPost() {
+export async function getAllPosts() {
   const collPost = collection(db, 'post');
   const postSnapshot = await getDocs(collPost);
   const listPost = postSnapshot.docs.map(doc => doc.data());

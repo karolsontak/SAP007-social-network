@@ -1,6 +1,6 @@
 import {
   createPost, 
-  getAllPost, 
+  getAllPosts, 
   logout,
 } from '/firebase.js';
 
@@ -39,7 +39,7 @@ export default function Feed() {
     const postList = feed.querySelector('#container-post');
     const logoutBtn = feed.querySelector('#logout-btn');
 
-    getAllPost().then(post => {
+    getAllPosts().then(post => {
       const postCreated = post.map(post => `
         <li class="allposts">
           <div class='identification'> 
