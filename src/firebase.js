@@ -111,3 +111,8 @@ export async function getAllPost() {
 //     alert('Erro ao fazer logout');
 //   });
 // }
+
+export const logout = () => {
+  const logoutUser = auth.signOut();
+  return logoutUser;
+};

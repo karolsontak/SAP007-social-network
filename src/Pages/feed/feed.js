@@ -1,4 +1,4 @@
-import {createPost, getAllPost} from '/firebase.js';
+import {createPost, getAllPost, logout} from '/firebase.js';
 export default function Feed() {
   const feed = document.createElement("div");
   feed.classList.add("feed-post")
@@ -34,6 +34,7 @@ export default function Feed() {
     const closePost = feed.querySelector('#close-post');
     const postFeed = feed.querySelector('#post-textarea');
     const postList = feed.querySelector('#container-post');
+    const logoutBtn = feed.querySelector('#logout-btn');
 
     getAllPost().then(post => {
       const postCreate = post.map(post => `
@@ -71,6 +72,12 @@ export default function Feed() {
       e.preventDefault();
       createPost(postFeed.value);
     });
+
+    logoutBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    logout();
+    window.location.hash = "login";
+  });
 
   return feed;
 }
