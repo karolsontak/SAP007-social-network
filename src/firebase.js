@@ -61,7 +61,7 @@ export const createPost = async (postText) => {
   const postUser = await addDoc(collection(db, 'post'), {
     displayName: current().displayName,
     email: current().email,
-    data: new Date(),
+    data: new Date().toLocaleDateString('pt-BR'),
     post: postText,
     like: [],
   })
