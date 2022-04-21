@@ -1,40 +1,35 @@
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged
+  signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, updateProfile
 } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
 import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
 import { auth, db } from "/config.js";
+
+
+export const current = () => {
+  const user = auth.currentUser;
+  return user;
+};
 
 export function registerUser(name, email, password) {
   return createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     const user = userCredential.user;
-    user.updateProfile({
+    updateProfile(user, {
       displayName: name,
     });
     return user;
   })
   .catch((error) => {
-    // if (error.code === 'auth/uid-already-exists') {
-    //   emailError.innerHTML = 'E-mail já cadastrado';
-    // } else if (error.code === 'auth/email-already-in-use') {
-    //   emailError.innerHTML = 'E-mail já cadastrado';
-    // } else if (error.code === 'auth/invalid-email') {
-    //   emailError.innerHTML = 'E-mail invalido';
-    // } else {
-    //   emailError.innerHTML = 'Preencha novamente.';
-    // }
   });
 }
+
 
 export function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
 
-export const saveUser = () => {
-  const user = auth.currentUser;
-  return user;
-};
+
 // export function saveUserUpdate(name) {
 //   return auth.currentUser
 //     .updateProfile({
@@ -62,10 +57,11 @@ export const signInGoogle = () => {
 
 };
 
-export const createPost = async (postText, displayName) => {
+export const createPost = async (postText) => {
   const postUser = await addDoc(collection(db, 'post'), {
-    name: displayName,
-    data:new Date(),
+    displayName: current().displayName,
+    email: current().email,
+    data: new Date(),
     post: postText,
     like: [],
   })
@@ -73,6 +69,13 @@ export const createPost = async (postText, displayName) => {
   .catch((error) => error);
  return postUser;
 };
+
+export async function getAllPost() {
+  const collPost = collection(db, 'post');
+  const postSnapshot = await getDocs(collPost);
+  const listPost = postSnapshot.docs.map(doc => doc.data());
+  return listPost;
+}
 
 // const user = getFirestore(app);
 // export function saveUser (user, email, name) {
@@ -94,17 +97,17 @@ export const createPost = async (postText, displayName) => {
 // }
 
 
-export function stayLoggedIn(uid) {
-  return onAuthStateChanged(auth, (user) => {
-    uid(user !== null);
-  });
-}
+// export function stayLoggedIn(uid) {
+//   return onAuthStateChanged(auth, (user) => {
+//     uid(user !== null);
+//   });
+// }
 
-export function logout() {
-  auth.signOut().then(() => {
-    alert('Saiu');
-    window.location.hash = '';
-  }).catch(() => {
-    alert('Erro ao fazer logout');
-  });
-}
+// export function logout() {
+//   auth.signOut().then(() => {
+//     alert('Saiu');
+//     window.location.hash = '';
+//   }).catch(() => {
+//     alert('Erro ao fazer logout');
+//   });
+// }

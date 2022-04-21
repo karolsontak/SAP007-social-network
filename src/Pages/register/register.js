@@ -1,4 +1,4 @@
-import { registerUser, saveUser} from "/firebase.js";
+import { registerUser} from "/firebase.js";
 
 export default function Register() {
   const register = document.createElement("div");
@@ -27,7 +27,7 @@ export default function Register() {
   const name = register.querySelector("#name");
   const email = register.querySelector("#email");
   const password = register.querySelector("#password");
-  // const emailError = register.querySelector('#email-error');
+  const emailError = register.querySelector('#email-error');
 
   const gobackButton = register.querySelector("#gobackButton");
   gobackButton.addEventListener("click", (e) => {
@@ -40,21 +40,20 @@ export default function Register() {
   );
   signUpButtonRegister.addEventListener("click", (e) => {
     e.preventDefault();
-    registerUser(name.value, email.value, password.value);
-    // .then(() => {
-    //   saveUserUpdate(name.value);
-    // })
-    // .catch((error) => {
-    //   if (error.code === 'auth/uid-already-exists') {
-    //     emailError.innerHTML = 'E-mail já cadastrado';
-    //   } else if (error.code === 'auth/email-already-in-use') {
-    //     emailError.innerHTML = 'E-mail já cadastrado';
-    //   } else if (error.code === 'auth/invalid-email') {
-    //     emailError.innerHTML = 'E-mail invalido';
-    //   } else {
-    //     emailError.innerHTML = 'Preencha novamente.';
-    //   }
-    // });
+    registerUser(name.value, email.value, password.value)
+    .then(() => {
+    })
+    .catch((error) => {
+      if (error.code === 'auth/uid-already-exists') {
+        emailError.innerHTML = 'E-mail já cadastrado';
+      } else if (error.code === 'auth/email-already-in-use') {
+        emailError.innerHTML = 'E-mail já cadastrado';
+      } else if (error.code === 'auth/invalid-email') {
+        emailError.innerHTML = 'E-mail invalido';
+      } else {
+        emailError.innerHTML = 'Preencha novamente.';
+      }
+    });
     window.location.hash = "feed";
     
   });

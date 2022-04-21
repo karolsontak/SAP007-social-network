@@ -1,14 +1,8 @@
-import {createPost, saveUser} from '/firebase.js';
+import {createPost, getAllPost} from '/firebase.js';
 export default function Feed() {
   const feed = document.createElement("div");
   feed.classList.add("feed-post")
   feed.innerHTML = `  
-      <div class="perfil-container">
-        <div class="perfil-style">
-        <img class="foto-style" src=''>
-        <p id="usuario" class="text-style"></p>
-        <p class="text-style"></p>
-      </div>
       
       <div class="menu">
         <img id="home-btn" class="home-btn" alt="menu home" src="./img/home.png">
@@ -27,7 +21,11 @@ export default function Feed() {
         </div>
       </section>
 
-        `;
+      <section class="post-feed">
+        <ul id="container-post"></ul>
+      </section>
+
+    `;
 
     const addPost = feed.querySelector('#add-post');
     const homeBtn = feed.querySelector('#home-btn');
@@ -35,7 +33,23 @@ export default function Feed() {
     const postBtn = feed.querySelector('#post-btn');
     const closePost = feed.querySelector('#close-post');
     const postFeed = feed.querySelector('#post-textarea');
-    const userCurrent = saveUser();
+    const postList = feed.querySelector('#container-post');
+
+    getAllPost().then(post => {
+      const postCreate = post.map(post => `
+      <li>
+        <div class='ide'> 
+          <p class='name-user'> ${post.displayName} </p>
+          <p class='data-post'> ${post.data} </p>
+        </div>
+        <div class='text-post'>
+          <p class='post-feed'> ${post.post} </p>
+        </div>
+      </li>
+    
+      `).join('')
+      postList.innerHTML = postCreate;
+    })
 
     addPost.onclick = function() {
         modalPost.style.display = "block";
@@ -55,9 +69,10 @@ export default function Feed() {
       modalPost.style.display = "none";
       addPost.style.display = "block";
       e.preventDefault();
-      createPost(postFeed.value, userCurrent.displayName);
-
+      createPost(postFeed.value);
     });
 
   return feed;
 }
+
+
