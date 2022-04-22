@@ -2,12 +2,12 @@ export default function AboutUs() {
     const aboutUs = document.createElement("div");
     aboutUs.classList.add("about-post")
     aboutUs.innerHTML = `  
-        <div class="menu">
+        <nav class="menu">
           <img id="home-btn" class="home-btn" alt="menu home" src="./img/home.png">
           <img id="perfil-btn" class="perfil-btn" alt="menu perfil" src="./img/perfil.png">
           <img id="dev-btn" class="dev-btn" alt="menu desenvolvedoras" src="./img/dev.png">
           <img id="logout-btn" class="logout-btn" alt="menu logout" src="./img/logout.png">
-        </div>
+        </nav>
          
         <section id="about-us" class="about-us">
             <p class="title-container"><b> Desenvolvido por: </b></p>

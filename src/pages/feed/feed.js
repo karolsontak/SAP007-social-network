@@ -8,12 +8,12 @@ export default function Feed() {
   const feed = document.createElement("div");
   feed.classList.add("feed-post")
   feed.innerHTML = `  
-      <div class="menu">
+      <nav class="menu">
         <img id="home-btn" class="home-btn" alt="menu home" src="./img/home.png">
         <img id="perfil-btn" class="perfil-btn" alt="menu perfil" src="./img/perfil.png">
         <img id="dev-btn" class="dev-btn" alt="menu desenvolvedoras" src="./img/dev.png">
         <img id="logout-btn" class="logout-btn" alt="menu logout" src="./img/logout.png">
-      </div>
+      </nav>
 
       <img id="add-post" class="add-post" alt="adicionar post" src="./img/add.png">
       

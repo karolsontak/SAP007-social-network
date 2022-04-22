@@ -11,6 +11,8 @@ import {
   addDoc, 
   getDocs, 
   doc, 
+  query,
+  orderBy,
   updateDoc, 
 } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
 import { 
@@ -88,39 +90,9 @@ export const logout = () => {
   return logoutUser;
 };
 
-
-// export function saveUserUpdate(name) {
-//   return auth.currentUser
-//     .updateProfile({
-//       displayName: name,
-//     })
-//     .then(() => true)
-//     .catch((error) => error);
-// }
-
-// const user = getFirestore(app);
-// export function saveUser (user, email, name) {
-//   return addDoc().collection('users').doc(email).set({
-//     name: name,
-//     email: email,
-//   })
-//     .then(() => true)
-//     .catch((error) => error);
-// };
-
-// export async function saveUser(){
-//   const collectionUsers = await addDoc[collection(auth, "users"), {
-//     name: user,
-//     email: email,
-//   }];
-//   const usersSnapshot = getDocs(collectionUsers);
-//   return usersSnapshot.docs.map(doc => doc.data());
-// }
-
-
-// export function stayLoggedIn(uid) {
-//   return onAuthStateChanged(auth, (user) => {
-//     uid(user !== null);
-//   });
-// }
+export function stayLoggedIn(callback) {
+  return onAuthStateChanged(auth, (user) => {
+    callback(user !== null);
+  });
+}
 
