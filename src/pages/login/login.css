@@ -92,13 +92,6 @@
     color: white;
   }
   
-  .or {
-    font-size: 18px;
-    font-weight: bolder;
-    margin: 5% 0 2% 0;
-    color: #fefefe;
-  }
-
   .google-button {
     width: 70%;
     display: flex;

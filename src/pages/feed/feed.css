@@ -3,16 +3,22 @@
 }
 
 body {
+  margin: 0;
   background-size: cover;
   background-color: #1e1e1eee;
 }
 
-.post {
-  display: none;
-  z-index: 1;
+ul {
+list-style-type: none;
+padding: 0px;
+margin: 0px;
 }
 
-.post-container, .my-posts-container, .timeline-container {
+.post {
+  display: none;
+}
+
+.post-container {
   display: grid;
   justify-items: center;
 }
@@ -28,29 +34,28 @@ body {
 
 .menu {
   display: inline-flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 90%;
-  height: 30px;
+  height: 20px;
   font-size: 14px;
   padding: 5%;
   border-radius: 5px;
-  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.507);
-  background-color: rgba(52, 52, 52, 0.5);
+  background-color: rgb(52, 52, 52);
   color: white;
   position: fixed;
-  bottom: 5px;
+  bottom: 0;
 }
 
-.home-btn, .perfil-btn, .notification-btn, .logout-btn {
+.home-btn, .perfil-btn, .dev-btn, .logout-btn {
   width: 30px;
   height: 30px;
   cursor: pointer;
 }
 
 .post-textarea {
-  width: 350px;
-  height: 90%;
+  width: 90%;
+  height: 80%;
   border: none;
   font-size: 14px;
   padding: 2%;
@@ -74,8 +79,9 @@ body {
   font-size: 14px;
   font-weight:600;
   position: relative;
-  right: 140px;
-  margin-top: 5%;
+  right: 125px;
+  margin-top: 1%;
+  margin-bottom: 3%;
 }
 
 .close-post {
@@ -87,12 +93,19 @@ body {
   top: 20px;
 }
 
+.container-post {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .allposts {
-  width: 20rem;
+  width: 85%;
   height: 70%;
   border: none;
   font-size: 14px;
-  padding: 5%;
+  padding: 6%;
   border-radius: 5px;
   box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.507);
   background-color: rgba(52, 52, 52, 0.5);
@@ -101,10 +114,24 @@ body {
   margin-bottom: 3%;
 }
 
-.all-btn, .like, .action-btn{
-  display: inline-flex;
+.all-btn {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  width: 35rem;
+}
+
+.like {
+  display: flex;
+  width: 12%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-btn {
+  display: flex;
+  width: 15%;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .identification {
@@ -124,6 +151,7 @@ body {
 
 .data-post{
   font-size: 12px;
+  color: #8C8C8C;
 }
 
 .like-post, .edit-post, .delete-post {
@@ -137,9 +165,6 @@ body {
   height: 50px;
 }
 
-.data-post{
-  color: #8C8C8C;
-}
 /* TELAS GRANDES */
   @media screen and (min-width: 768px) {
     .menu {
@@ -156,18 +181,17 @@ body {
     }
 
     .post-textarea {
-      width: 400px;
+      width: 30%;
       height: 50%;
     }
 
     .post-btn {
       right: 180px;
-      margin-top: 1%;
     }
 
     .close-post {
       left: 250px;
-      top: 60px;
+      top: 2%;
     }
 
     .post-feed{
@@ -180,7 +204,5 @@ body {
       width: 400px;
       height: 50%;
     }
-    .all-btn, .like, .action-btn{
-      width: 45rem;
-    }
+
   }

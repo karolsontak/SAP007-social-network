@@ -11,7 +11,7 @@ export default function Feed() {
       <div class="menu">
         <img id="home-btn" class="home-btn" alt="menu home" src="./img/home.png">
         <img id="perfil-btn" class="perfil-btn" alt="menu perfil" src="./img/perfil.png">
-        <img id="notification-btn" class="notification-btn" alt="menu notification" src="./img/notification.png">
+        <img id="dev-btn" class="dev-btn" alt="menu desenvolvedoras" src="./img/dev.png">
         <img id="logout-btn" class="logout-btn" alt="menu logout" src="./img/logout.png">
       </div>
 
@@ -32,12 +32,13 @@ export default function Feed() {
 
     const addPost = feed.querySelector('#add-post');
     const homeBtn = feed.querySelector('#home-btn');
+    const devBtn = feed.querySelector('#dev-btn');
+    const logoutBtn = feed.querySelector('#logout-btn');
     const modalPost = feed.querySelector('#post');
     const postBtn = feed.querySelector('#post-btn');
     const closePost = feed.querySelector('#close-post');
     const postFeed = feed.querySelector('#post-textarea');
     const postList = feed.querySelector('#container-post');
-    const logoutBtn = feed.querySelector('#logout-btn');
 
     getAllPosts().then(post => {
       const postCreated = post.map(post => `
@@ -88,6 +89,11 @@ export default function Feed() {
       addPost.style.display = "block";
       e.preventDefault();
       createPost(postFeed.value);
+    });
+
+    devBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.hash = "about";
     });
 
     logoutBtn.addEventListener('click', (e) => {

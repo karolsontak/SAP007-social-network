@@ -1,6 +1,8 @@
 import feed from './pages/feed/feed.js';
 import login from './pages/login/login.js';
 import register from './pages/register/register.js';
+import about from './pages/about/about.js';
+
 
 const container = document.querySelector('#root');
 
@@ -16,6 +18,9 @@ const redirect = () => {
       break;
     case '#feed':
       container.appendChild(feed());
+      break;
+      case '#about':
+      container.appendChild(about());
       break;
     default:
       container.appendChild(login());

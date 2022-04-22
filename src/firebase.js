@@ -23,6 +23,11 @@ export const current = () => {
   return user;
 };
 
+// export const uid = () => {
+//   const userUid = auth.currentUser.uid;
+//   return userUid;
+// };
+
 export function registerUser(name, email, password) {
   return createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
