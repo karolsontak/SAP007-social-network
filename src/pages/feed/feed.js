@@ -2,6 +2,8 @@ import {
   createPost, 
   getAllPosts, 
   logout,
+  deletePost,
+  current
 } from '/firebase.js';
 
 export default function Feed() {
@@ -41,6 +43,7 @@ export default function Feed() {
     const postList = feed.querySelector('#container-post');
 
     getAllPosts().then(post => {
+      // const userPost = current.user;
       const postCreated = post.map(post => `
         <li class="allposts">
           <div class='identification'> 
@@ -62,13 +65,31 @@ export default function Feed() {
             </div>
             <div class="action-btn">
               <img id="edit-post" class="edit-post" src="./img/edit.png" alt="Botão de edição">
-              <img id="delete-post" class="delete-post" src="./img/trash.png" alt="Botão de deletar">
+              <img class="delete-post" src="./img/trash.png" alt="Botão de deletar">
             </div>
           </div>
         </li>`
       ).join('')
       postList.innerHTML = postCreated;
+
+    //   const btnRemove = feed.querySelector('[data-postremove]');
+    //  btnRemove.addEventListener('click', (e) => {
+    //   const { target } = e;
+    //   // const target = e.target
+    //   const dataPost = target.dataset.postremove;
+    //   deletePost(dataPost);
+    //  });
+
+      const deleteObject = feed.querySelector('.delete-post');
+      const all = feed.querySelector('.allposts');
+
+      deleteObject.addEventListener('click', (e) => {
+        e.preventDefault();
+        deletePost(post.user);
+        all.remove();
+      });
     })
+
 
     addPost.onclick = function() {
         modalPost.style.display = "block";

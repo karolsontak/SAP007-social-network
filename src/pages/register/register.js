@@ -25,6 +25,7 @@ export default function Register() {
     `;
 
   const name = register.querySelector("#name");
+  const photo = register.querySelector("#photo-ano");
   const email = register.querySelector("#email");
   const password = register.querySelector("#password");
   const errorMessage = register.querySelector("#error-message");

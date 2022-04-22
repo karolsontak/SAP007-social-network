@@ -13,7 +13,8 @@ import {
   doc, 
   query,
   orderBy,
-  updateDoc, 
+  // updateDoc, 
+  deleteDoc
 } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
 import { 
   auth, 
@@ -79,11 +80,23 @@ export const createPost = async (postText) => {
 };
 
 export async function getAllPosts() {
-  const collPost = collection(db, 'post');
+  const collPost = query(collection(db, 'post'), orderBy('data', 'desc'));
   const postSnapshot = await getDocs(collPost);
   const listPost = postSnapshot.docs.map(doc => doc.data());
+
   return listPost;
-}
+};
+
+// export const editPost = async (idPost, postText) => {
+//   const postIdEdit = doc(db, 'post', idPost);
+//   console.log(textPost);
+//   return await updateDoc(postIdEdit, { post: postText })
+// };
+
+export const deletePost = async (object) => {
+  const del = await deleteDoc(doc(db, 'post', object)); 
+  return del;
+};
 
 export const logout = () => {
   const logoutUser = auth.signOut();
