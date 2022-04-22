@@ -94,8 +94,8 @@ export async function getAllPosts() {
 // };
 
 export const deletePost = async (object) => {
-  const del = await deleteDoc(doc(db, 'post', object)); 
-  return del;
+  const delPost = await deleteDoc(doc(db, 'post', object)); 
+  return delPost;
 };
 
 export const logout = () => {
