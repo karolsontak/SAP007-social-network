@@ -1,13 +1,9 @@
-<<<<<<< HEAD:src/Pages/feed/feed.js
-import {createPost, getAllPost, logout} from '/firebase.js';
-=======
 import {
   createPost, 
   getAllPosts, 
   logout,
 } from '/firebase.js';
 
->>>>>>> 5076a58c96e2e6d119ad189fcb25d4999dd21618:src/pages/feed/feed.js
 export default function Feed() {
   const feed = document.createElement("div");
   feed.classList.add("feed-post")
@@ -37,7 +33,6 @@ export default function Feed() {
     const addPost = feed.querySelector('#add-post');
     const homeBtn = feed.querySelector('#home-btn');
     const devBtn = feed.querySelector('#dev-btn');
-    const logoutBtn = feed.querySelector('#logout-btn');
     const modalPost = feed.querySelector('#post');
     const postBtn = feed.querySelector('#post-btn');
     const closePost = feed.querySelector('#close-post');
@@ -97,13 +92,6 @@ export default function Feed() {
       createPost(postFeed.value);
     });
 
-<<<<<<< HEAD:src/Pages/feed/feed.js
-    logoutBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    logout();
-    window.location.hash = "login";
-  });
-=======
     devBtn.addEventListener('click', (e) => {
       e.preventDefault();
       window.location.hash = "about";
@@ -114,7 +102,6 @@ export default function Feed() {
       logout();
       window.location.hash = "login";
     });
->>>>>>> 5076a58c96e2e6d119ad189fcb25d4999dd21618:src/pages/feed/feed.js
 
   return feed;
 }

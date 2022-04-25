@@ -34,8 +34,10 @@ export function registerUser(name, email, password) {
   return createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     const user = userCredential.user;
+    const photoUser = '../img/anonimo.png';
     updateProfile(user, {
       displayName: name,
+      photoUser: photoUser,
     });
     return user;
   })
@@ -69,10 +71,7 @@ export const createPost = async (postText) => {
     displayName: current().displayName,
     email: current().email,
     data: new Date().toLocaleDateString('pt-BR'),
-<<<<<<< HEAD
-=======
     hour: new Date().toLocaleTimeString([], {timeStyle: 'short'}),
->>>>>>> 5076a58c96e2e6d119ad189fcb25d4999dd21618
     post: postText,
     like: [],
     user: current().uid,
@@ -100,19 +99,3 @@ export function stayLoggedIn(callback) {
   });
 }
 
-<<<<<<< HEAD
-// export function logout() {
-//   auth.signOut().then(() => {
-//     alert('Saiu');
-//     window.location.hash = '';
-//   }).catch(() => {
-//     alert('Erro ao fazer logout');
-//   });
-// }
-
-export const logout = () => {
-  const logoutUser = auth.signOut();
-  return logoutUser;
-};
-=======
->>>>>>> 5076a58c96e2e6d119ad189fcb25d4999dd21618
