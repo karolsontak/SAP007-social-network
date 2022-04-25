@@ -10,7 +10,13 @@ const redirect = () => {
   container.innerHTML = ''; 
   switch (window.location.hash) {
     case '#login':
-      container.appendChild(login());
+      stayLoggedIn((loggedIn) => {
+        if (loggedIn) {
+          container.appendChild(feed());
+        } else {
+          container.appendChild(login());
+        }
+      }) 
       break;
     case '#register':
       container.appendChild(register());

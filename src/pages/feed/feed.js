@@ -52,7 +52,7 @@ export default function Feed() {
             </div>
             <div class='text-identification'>
             <p class='username'><b>${post.displayName}</b></p>
-            <p class='data-post'> Postado em ${post.data} </p>
+            <p class='data-post'> Postado em ${post.data} às ${post.hour} </p>
             </div>
           </div>
           <div class='text-post'>
@@ -94,6 +94,7 @@ export default function Feed() {
     addPost.onclick = function() {
         modalPost.style.display = "block";
         addPost.style.display = "none";
+
     }
     closePost.onclick = function() {
         modalPost.style.display = "none";

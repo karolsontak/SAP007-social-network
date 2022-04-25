@@ -70,6 +70,7 @@ export const createPost = async (postText) => {
     displayName: current().displayName,
     email: current().email,
     data: new Date().toLocaleDateString('pt-BR'),
+    hour: new Date().toLocaleTimeString([], {timeStyle: 'short'}),
     post: postText,
     like: [],
     user: current().uid,
@@ -80,7 +81,7 @@ export const createPost = async (postText) => {
 };
 
 export async function getAllPosts() {
-  const collPost = query(collection(db, 'post'), orderBy('data', 'desc'));
+  const collPost = query (collection(db, 'post'), orderBy ('data', 'desc'), orderBy ('hour', 'desc'));
   const postSnapshot = await getDocs(collPost);
   const listPost = postSnapshot.docs.map(doc => doc.data());
 
@@ -94,8 +95,8 @@ export async function getAllPosts() {
 // };
 
 export const deletePost = async (object) => {
-  const delPost = await deleteDoc(doc(db, 'post', object)); 
-  return delPost;
+  const del = await deleteDoc(doc(db, 'post', object)); 
+  return del;
 };
 
 export const logout = () => {
