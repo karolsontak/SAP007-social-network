@@ -1,4 +1,4 @@
-import { registerUser} from "/firebase.js";
+import { registerUser } from "/firebase.js";
 
 export default function Register() {
   const register = document.createElement("div");
@@ -6,7 +6,7 @@ export default function Register() {
   register.innerHTML = `
       <main class="box">
         <div class="banner">
-          <img class="logo" src="../../img/LOGO.png" alt="Logo"/>
+          <img class="logo" src="../../img/logo.png" alt="Logo"/>
           <p class="tittle-banner">CADASTRO</p>
         </div>
                 
@@ -14,11 +14,11 @@ export default function Register() {
           <input class="register-input" id="name" type="name" placeholder="NOME COMPLETO" required/>
           <input class="register-input" id="email" type="email" placeholder="E-MAIL" required/>                    
           <input class="register-input" id="password" type="password" placeholder="SENHA" required/>
-          <p id="email-error" class="error-message"></p>
+          <p id="error-message" class="error-message"></p>
         </form>
 
         <div class="signup">
-          <button id="register-button" class="register-button">CADASTRAR-SE</button>
+          <button id="register-button" class="register-button">CADASTRAR</button>
           <img src="./img/goback.png" id="gobackButton" class="goback-img" alt="Ícone de Seta">
         </div>
       </main>
@@ -27,7 +27,7 @@ export default function Register() {
   const name = register.querySelector("#name");
   const email = register.querySelector("#email");
   const password = register.querySelector("#password");
-  const emailError = register.querySelector('#email-error');
+  const errorMessage = register.querySelector("#error-message");
 
   const gobackButton = register.querySelector("#gobackButton");
   gobackButton.addEventListener("click", (e) => {
@@ -40,22 +40,25 @@ export default function Register() {
   );
   signUpButtonRegister.addEventListener("click", (e) => {
     e.preventDefault();
-    registerUser(name.value, email.value, password.value)
-    .then(() => {
-    })
-    .catch((error) => {
-      if (error.code === 'auth/uid-already-exists') {
-        emailError.innerHTML = 'E-mail já cadastrado';
-      } else if (error.code === 'auth/email-already-in-use') {
-        emailError.innerHTML = 'E-mail já cadastrado';
-      } else if (error.code === 'auth/invalid-email') {
-        emailError.innerHTML = 'E-mail invalido';
-      } else {
-        emailError.innerHTML = 'Preencha novamente.';
+    if (name.value, email.value, password.value) {
+      registerUser(name.value, email.value, password.value)
+        .then(() => {
+          window.location.hash = "feed";
+        })
+        .catch((error) => {
+          if (error.code === 'auth/uid-already-exists') {
+            errorMessage.innerHTML = 'E-mail já cadastrado';
+          } else if (error.code === 'auth/email-already-in-use') {
+            errorMessage.innerHTML = 'E-mail já cadastrado';
+          } else if (error.code === 'auth/invalid-email') {
+            errorMessage.innerHTML = 'E-mail invalido';
+          } else {
+            errorMessage.innerHTML = 'Erro! Preencha novamente.';
+          }
+        });
+    } else if (name.value === '' || email.value === '' || password.value === '') {
+      errorMessage.innerHTML = "Preencha todos os campos!";
       }
-    });
-    window.location.hash = "feed";
-    
   });
 
   return register;

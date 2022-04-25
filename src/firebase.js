@@ -1,15 +1,34 @@
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, updateProfile
+  signInWithEmailAndPassword, 
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  onAuthStateChanged, 
+  updateProfile
 } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
-import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
-import { auth, db } from "/config.js";
-
+import { 
+  collection, 
+  addDoc, 
+  getDocs, 
+  doc, 
+  query,
+  orderBy,
+  updateDoc, 
+} from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
+import { 
+  auth, 
+  db 
+} from "/config.js";
 
 export const current = () => {
   const user = auth.currentUser;
   return user;
 };
+
+// export const uid = () => {
+//   const userUid = auth.currentUser.uid;
+//   return userUid;
+// };
 
 export function registerUser(name, email, password) {
   return createUserWithEmailAndPassword(auth, email, password)
@@ -24,20 +43,9 @@ export function registerUser(name, email, password) {
   });
 }
 
-
 export function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
-
-
-// export function saveUserUpdate(name) {
-//   return auth.currentUser
-//     .updateProfile({
-//       displayName: name,
-//     })
-//     .then(() => true)
-//     .catch((error) => error);
-// }
 
 const provider = new GoogleAuthProvider();
 export const signInGoogle = () => {
@@ -46,7 +54,6 @@ export const signInGoogle = () => {
    const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
     const user = result.user;
-
   })
   .catch((error) => {
       const errorCode = error.code;
@@ -54,55 +61,46 @@ export const signInGoogle = () => {
       const email = error.email;
       const credential = GoogleAuthProvider.credentialFromError(error);
   })
-
 };
 
 export const createPost = async (postText) => {
   const postUser = await addDoc(collection(db, 'post'), {
+    photo: current().photoURL,
     displayName: current().displayName,
     email: current().email,
     data: new Date().toLocaleDateString('pt-BR'),
+<<<<<<< HEAD
+=======
+    hour: new Date().toLocaleTimeString([], {timeStyle: 'short'}),
+>>>>>>> 5076a58c96e2e6d119ad189fcb25d4999dd21618
     post: postText,
     like: [],
+    user: current().uid,
   })
   .then(() => true)
   .catch((error) => error);
  return postUser;
 };
 
-export async function getAllPost() {
-  const collPost = collection(db, 'post');
+export async function getAllPosts() {
+  const collPost = query (collection(db, 'post'), orderBy ('data', 'desc'), orderBy ('hour', 'desc'));
   const postSnapshot = await getDocs(collPost);
   const listPost = postSnapshot.docs.map(doc => doc.data());
   return listPost;
 }
 
-// const user = getFirestore(app);
-// export function saveUser (user, email, name) {
-//   return addDoc().collection('users').doc(email).set({
-//     name: name,
-//     email: email,
-//   })
-//     .then(() => true)
-//     .catch((error) => error);
-// };
+export const logout = () => {
+  const logoutUser = auth.signOut();
+  return logoutUser;
+};
 
-// export async function saveUser(){
-//   const collectionUsers = await addDoc[collection(auth, "users"), {
-//     name: user,
-//     email: email,
-//   }];
-//   const usersSnapshot = getDocs(collectionUsers);
-//   return usersSnapshot.docs.map(doc => doc.data());
-// }
+export function stayLoggedIn(callback) {
+  return onAuthStateChanged(auth, (user) => {
+    callback(user !== null);
+  });
+}
 
-
-// export function stayLoggedIn(uid) {
-//   return onAuthStateChanged(auth, (user) => {
-//     uid(user !== null);
-//   });
-// }
-
+<<<<<<< HEAD
 // export function logout() {
 //   auth.signOut().then(() => {
 //     alert('Saiu');
@@ -116,3 +114,5 @@ export const logout = () => {
   const logoutUser = auth.signOut();
   return logoutUser;
 };
+=======
+>>>>>>> 5076a58c96e2e6d119ad189fcb25d4999dd21618
