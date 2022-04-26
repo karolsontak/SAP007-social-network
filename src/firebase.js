@@ -87,7 +87,15 @@ export const createPost = async (postText) => {
 export async function getAllPosts() {
   const collPost = query (collection(db, 'post'), orderBy ('data', 'desc'), orderBy ('hour', 'desc'));
   const postSnapshot = await getDocs(collPost);
-  const listPost = postSnapshot.docs.map(doc => doc.data());
+  const listPost = postSnapshot.docs.map(doc => {
+    const id = doc.id;
+    const data = doc.data();
+    const post = {
+      id, 
+      ...data,
+    }
+    return post;
+  });
 
   return listPost;
 };
@@ -98,8 +106,8 @@ export async function getAllPosts() {
 //   return await updateDoc(postIdEdit, { post: postText })
 // };
 
-export const deletePost = async (object) => {
-  const del = await deleteDoc(doc(db, 'post', object)); 
+export const deletePost = async (idPost) => {
+  const del = await deleteDoc(doc(db, 'post', idPost)); 
   return del;
 };
 

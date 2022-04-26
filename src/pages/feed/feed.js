@@ -42,16 +42,17 @@ export default function Feed() {
     const postFeed = feed.querySelector('#post-textarea');
     const postList = feed.querySelector('#container-post');
 
-    getAllPosts().then(post => {
-      const postCreated = post.map(post => `
-        <li class="allposts">
+    getAllPosts().then(posts => {
+      console.log(posts);
+      const postCreated = posts.map(post => `
+        <li data-id="${post.id}" class="allposts">
           <div class='identification'> 
             <div>
               <img class='profile-img' src='${post.photo}'>
             </div>
             <div class='text-identification'>
             <p class='username'><b>${post.displayName}</b></p>
-            <p class='data-post'> Postado em ${post.data} às ${post.hour} </p>
+            <p class='data-post'> Postado em ${post.data} </p>
             </div>
           </div>
           <div class='text-post'>
@@ -64,24 +65,29 @@ export default function Feed() {
             </div>
             <div class="action-btn">
               <img id="edit-post" class="edit-post" src="./img/edit.png" alt="Botão de edição">
-              <img id="delete-post" class="delete-post" src="./img/trash.png" alt="Botão de deletar">
+              <img id="delete-post"  data-delete="true" class="delete-post" src="./img/trash.png" alt="Botão de deletar">
             </div>
           </div>
         </li>`
       ).join('')
       postList.innerHTML = postCreated;
 
-      const deleteObject = feed.querySelector(".delete-post");
-      const all = feed.querySelector(".allposts");
+      const postsElements = feed.querySelectorAll(".allposts");
       const likePost = feed.querySelector(".like-post");
 
-      
-      deleteObject.addEventListener("click", (e) => {
-        e.preventDefault();
-        deletePost(post.user);
-        all.remove();
-      });
+      postsElements.forEach(post => {
+        post.addEventListener('click', (e) => {
+         if(e.target.dataset.delete){
+          deletePost(e.currentTarget.dataset.id)
+          .then(() => {
+            post.remove(); 
+          })
 
+         }
+        })
+      })
+
+       
       likePost.addEventListener("click", (e) => {
         e.target.dataset.like;
         like();
@@ -91,7 +97,6 @@ export default function Feed() {
     addPost.onclick = function() {
         modalPost.style.display = "block";
         addPost.style.display = "none";
-
     }
     closePost.onclick = function() {
         modalPost.style.display = "none";
