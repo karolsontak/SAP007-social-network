@@ -13,8 +13,10 @@ import {
   doc, 
   query,
   orderBy,
-  // updateDoc, 
-  deleteDoc
+  updateDoc, 
+  deleteDoc,
+  arrayRemove,
+  arrayUnion
 } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
 import { 
   auth, 
@@ -35,10 +37,10 @@ export function registerUser(name, email, password) {
   return createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     const user = userCredential.user;
-    const photoUser = '../img/anonimo.png';
+    const photoUser = './img/anonimo.png';
     updateProfile(user, {
       displayName: name,
-      photoUser: photoUser,
+      photo: photoUser,
     });
     return user;
   })
@@ -112,3 +114,27 @@ export function stayLoggedIn(callback) {
   });
 }
 
+
+export async function like (id, user){
+  const collectionPost = await db.collection('post');
+  const promiseLike =  collectionPost
+  .doc(id)
+  .getDocs()
+  .then((post) => {
+    let likes = post.data().like;
+    if (likes.includes(user)) {
+      likes = likes.filter((userLikedId) => userLikedId !== user);
+    } else {
+      likes.push(user);
+    }
+
+    return collectionPost
+      .doc(id)
+      .update({
+        likes,
+
+      });
+  });
+return promiseLike;
+}
+    
