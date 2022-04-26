@@ -1,14 +1,14 @@
 import {
-  createPost,
-  getAllPosts,
+  createPost, 
+  getAllPosts, 
   logout,
   deletePost,
   like,
-} from "/firebase.js";
+} from '/firebase.js';
 
 export default function Feed() {
   const feed = document.createElement("div");
-  feed.classList.add("feed-post");
+  feed.classList.add("feed-post")
   feed.innerHTML = `  
       <nav class="menu">
         <img id="home-btn" class="home-btn" alt="menu home" src="./img/home.png">
@@ -32,22 +32,18 @@ export default function Feed() {
       </section>
     `;
 
-  const addPost = feed.querySelector("#add-post");
-  const homeBtn = feed.querySelector("#home-btn");
-  const devBtn = feed.querySelector("#dev-btn");
-  const modalPost = feed.querySelector("#post");
-  const postBtn = feed.querySelector("#post-btn");
-  const closePost = feed.querySelector("#close-post");
-  const postFeed = feed.querySelector("#post-textarea");
-  const postList = feed.querySelector("#container-post");
-  const logoutBtn = feed.querySelector("#logout-btn");
-  const likePost = feed.querySelector(".like-post");
+    const addPost = feed.querySelector('#add-post');
+    const homeBtn = feed.querySelector('#home-btn');
+    const devBtn = feed.querySelector('#dev-btn');
+    const logoutBtn = feed.querySelector('#logout-btn');
+    const modalPost = feed.querySelector('#post');
+    const postBtn = feed.querySelector('#post-btn');
+    const closePost = feed.querySelector('#close-post');
+    const postFeed = feed.querySelector('#post-textarea');
+    const postList = feed.querySelector('#container-post');
 
-  getAllPosts().then((post) => {
-    // const userPost = current.user;
-    const postCreated = post
-      .map(
-        (post) => `
+    getAllPosts().then(post => {
+      const postCreated = post.map(post => `
         <li class="allposts">
           <div class='identification'> 
             <div>
@@ -61,69 +57,71 @@ export default function Feed() {
           <div class='text-post'>
             <p class='post-print'> ${post.post} </p>
           </div>
-          <div class='all-btn'data-postid = "${post.user}}" id = "${post.user}"> 
-            <div class='like' data-likeid = "${post.user}">
-              <img id="like-post" class="like-post" data-like ="${post.user}" src="./img/like.png" alt="Botão de like">
-              <label class='like-length'> ${post.like.length} </label>
+          <div class='all-btn'> 
+            <div class='like'>
+              <img id="like-post" class="like-post" src="./img/like.png" alt="Botão de like">
+              <p class='like-length'> ${post.like.length} </p>
             </div>
             <div class="action-btn">
               <img id="edit-post" class="edit-post" src="./img/edit.png" alt="Botão de edição">
-              <img class="delete-post" src="./img/trash.png" alt="Botão de deletar">
+              <img id="delete-post" class="delete-post" src="./img/trash.png" alt="Botão de deletar">
             </div>
           </div>
         </li>`
-      )
-      .join("");
-    postList.innerHTML = postCreated;
+      ).join('')
+      postList.innerHTML = postCreated;
 
-    const deleteObject = feed.querySelector(".delete-post");
-    const all = feed.querySelector(".allposts");
-    
-    deleteObject.addEventListener("click", (e) => {
-      e.preventDefault();
-      deletePost(post.user);
-      all.remove();
-    });
-  });
+      const deleteObject = feed.querySelector(".delete-post");
+      const all = feed.querySelector(".allposts");
+      const likePost = feed.querySelector(".like-post");
 
-  addPost.onclick = function () {
-    modalPost.style.display = "block";
-    addPost.style.display = "none";
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  };
-  closePost.onclick = function () {
-    modalPost.style.display = "none";
-    addPost.style.display = "block";
-  };
+      
+      deleteObject.addEventListener("click", (e) => {
+        e.preventDefault();
+        deletePost(post.user);
+        all.remove();
+      });
 
-  homeBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.location.hash = "feed";
-  });
+      likePost.addEventListener("click", (e) => {
+        e.target.dataset.like;
+        like();
+      });
+    })
 
-  postBtn.addEventListener("click", (e) => {
-    modalPost.style.display = "none";
-    addPost.style.display = "block";
-    e.preventDefault();
-    if (postFeed.value) {
-      createPost(postFeed.value);
-      window.location.hash = "feed";
+    addPost.onclick = function() {
+        modalPost.style.display = "block";
+        addPost.style.display = "none";
+
     }
-  });
+    closePost.onclick = function() {
+        modalPost.style.display = "none";
+        addPost.style.display = "block";
+      }
 
-  devBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.location.hash = "about";
-  });
+    homeBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.hash = "feed";
+    });
 
-  logoutBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    logout();
-    window.location.hash = "login";
-  });
+    postBtn.addEventListener("click", (e) => {
+      modalPost.style.display = "none";
+      addPost.style.display = "block";
+      e.preventDefault();
+      createPost(postFeed.value);
+    });
 
-  likePost.addEventListener("click", (e) => {
-    e.target.dataset.like;
-    like();
-  });
+    devBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.hash = "about";
+    });
+
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      logout();
+      window.location.hash = "login";
+    });
+
+  return feed;
 }
+
+

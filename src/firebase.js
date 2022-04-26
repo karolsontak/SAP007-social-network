@@ -103,18 +103,6 @@ export const deletePost = async (object) => {
   return del;
 };
 
-export const logout = () => {
-  const logoutUser = auth.signOut();
-  return logoutUser;
-};
-
-export function stayLoggedIn(callback) {
-  return onAuthStateChanged(auth, (user) => {
-    callback(user !== null);
-  });
-}
-
-
 export async function like (id, user){
   const collectionPost = await db.collection('post');
   const promiseLike =  collectionPost
@@ -136,5 +124,40 @@ export async function like (id, user){
       });
   });
 return promiseLike;
+};
+
+export const logout = () => {
+  const logoutUser = auth.signOut();
+  return logoutUser;
+};
+
+export function stayLoggedIn(callback) {
+  return onAuthStateChanged(auth, (user) => {
+    callback(user !== null);
+  });
 }
+
+
+// export async function like (id, user){
+//   const collectionPost = await db.collection('post');
+//   const promiseLike =  collectionPost
+//   .doc(id)
+//   .getDocs()
+//   .then((post) => {
+//     let likes = post.data().like;
+//     if (likes.includes(user)) {
+//       likes = likes.filter((userLikedId) => userLikedId !== user);
+//     } else {
+//       likes.push(user);
+//     }
+
+//     return collectionPost
+//       .doc(id)
+//       .update({
+//         likes,
+
+//       });
+//   });
+// return promiseLike;
+// }
     
