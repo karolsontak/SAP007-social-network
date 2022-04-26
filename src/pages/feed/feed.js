@@ -2,8 +2,8 @@ import {
   createPost,
   getAllPosts,
   logout,
-  deletePost,
-  like,
+  //deletePost,
+  //like,
 } from "/firebase.js";
 
 export default function Feed() {
@@ -34,17 +34,16 @@ export default function Feed() {
 
   const addPost = feed.querySelector("#add-post");
   const homeBtn = feed.querySelector("#home-btn");
-  const devBtn = feed.querySelector("#dev-btn");
+  const aboutBtn = feed.querySelector("#dev-btn");
   const modalPost = feed.querySelector("#post");
   const postBtn = feed.querySelector("#post-btn");
   const closePost = feed.querySelector("#close-post");
   const postFeed = feed.querySelector("#post-textarea");
   const postList = feed.querySelector("#container-post");
   const logoutBtn = feed.querySelector("#logout-btn");
-  const likePost = feed.querySelector(".like-post");
+  
 
   getAllPosts().then((post) => {
-    // const userPost = current.user;
     const postCreated = post
       .map(
         (post) => `
@@ -61,10 +60,10 @@ export default function Feed() {
           <div class='text-post'>
             <p class='post-print'> ${post.post} </p>
           </div>
-          <div class='all-btn'data-postid = "${post.user}}" id = "${post.user}"> 
+          <div class='all-btn'data-postid = "${post.id}}" id = "${post.id}"> 
             <div class='like' data-likeid = "${post.user}">
               <img id="like-post" class="like-post" data-like ="${post.user}" src="./img/like.png" alt="Botão de like">
-              <label class='like-length'> ${post.like.length} </label>
+              <p class='like-length'> ${post.like.length} </p>
             </div>
             <div class="action-btn">
               <img id="edit-post" class="edit-post" src="./img/edit.png" alt="Botão de edição">
@@ -75,15 +74,24 @@ export default function Feed() {
       )
       .join("");
     postList.innerHTML = postCreated;
-
-    const deleteObject = feed.querySelector(".delete-post");
-    const all = feed.querySelector(".allposts");
     
-    deleteObject.addEventListener("click", (e) => {
-      e.preventDefault();
-      deletePost(post.user);
-      all.remove();
-    });
+    // const deleteObject = feed.querySelector(".delete-post");
+    // const all = feed.querySelector(".allposts");
+    // const likePost = feed.querySelector("#like-post"); 
+
+    // deleteObject.addEventListener("click", (e) => {
+    //   e.preventDefault();
+    //   deletePost(post.user);
+    //   all.remove();
+    // });
+
+    // likePost.addEventListener("click", (e) => {
+    //   e.target.dataset.like;
+    //   if (likePost.value) {
+    //     like(likePost.value);
+    //   }
+    // });
+
   });
 
   addPost.onclick = function () {
@@ -111,7 +119,7 @@ export default function Feed() {
     }
   });
 
-  devBtn.addEventListener("click", (e) => {
+  aboutBtn.addEventListener("click", (e) => {
     e.preventDefault();
     window.location.hash = "about";
   });
@@ -120,10 +128,5 @@ export default function Feed() {
     e.preventDefault();
     logout();
     window.location.hash = "login";
-  });
-
-  likePost.addEventListener("click", (e) => {
-    e.target.dataset.like;
-    like();
   });
 }
