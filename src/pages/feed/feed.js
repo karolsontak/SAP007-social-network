@@ -42,7 +42,8 @@ export default function Feed() {
     const postFeed = feed.querySelector('#post-textarea');
     const postList = feed.querySelector('#container-post');
 
-    getAllPosts().then(posts => {
+    getAllPosts()
+    .then(posts => {
       console.log(posts);
       const postCreated = posts.map(post => `
         <li class="allposts" data-id="${post.id}">
@@ -86,9 +87,11 @@ export default function Feed() {
 
           if(e.target.dataset.like){
             const likeCount = feed.querySelector(".like-length");
+            const likeIcon = feed.querySelector(".like-post");
             likePost(id)
             .then((status) => {
               likeCount.textContent = status.count;
+              likeIcon.setAttribute("src", "./img/liked.png")
             })         
           }
         })
