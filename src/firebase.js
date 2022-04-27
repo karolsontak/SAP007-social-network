@@ -90,6 +90,7 @@ export async function getAllPosts() {
     }
     return post;
   });
+  console.log(listPost)
   return listPost;
 };
 
