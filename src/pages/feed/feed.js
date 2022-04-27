@@ -1,4 +1,5 @@
 import {
+  current,
   createPost, 
   getAllPosts, 
   logout,
@@ -41,6 +42,8 @@ export default function Feed() {
     const closePost = feed.querySelector('#close-post');
     const postFeed = feed.querySelector('#post-textarea');
     const postList = feed.querySelector('#container-post');
+    const user = current().uid
+
 
     getAllPosts()
     .then(posts => {
@@ -61,7 +64,7 @@ export default function Feed() {
           </div>
           <div class="all-btn"> 
             <div class="like">
-              <img class="like-post" data-like="true" src="./img/like.png" alt="Botão de like">
+              <img class="like-post" data-like="true" src="./img/${post.like.includes(user) ? 'liked': 'like'}.png" alt="Botão de like">
               <p class="like-length"> ${post.like.length} </p>
             </div>
             <div class="action-btn">
@@ -86,12 +89,17 @@ export default function Feed() {
           }
 
           if(e.target.dataset.like){
-            const likeCount = feed.querySelector(".like-length");
-            const likeIcon = feed.querySelector(".like-post");
+            const likeCount = e.currentTarget.querySelector(".like-length");
+            const likeIcon = e.currentTarget.querySelector(".like-post");
             likePost(id)
             .then((status) => {
               likeCount.textContent = status.count;
-              likeIcon.setAttribute("src", "./img/liked.png")
+              if (status.liked) {
+                likeIcon.setAttribute("src", "./img/liked.png")  
+              }
+              else {
+                likeIcon.setAttribute("src", "./img/like.png")  
+              }
             })         
           }
         })
