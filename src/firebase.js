@@ -15,8 +15,7 @@ import {
   orderBy,
   updateDoc, 
   deleteDoc,
-  arrayRemove,
-  arrayUnion
+  getDoc
 } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
 import { 
   auth, 
@@ -27,11 +26,6 @@ export const current = () => {
   const user = auth.currentUser;
   return user;
 };
-
-// export const uid = () => {
-//   const userUid = auth.currentUser.uid;
-//   return userUid;
-// };
 
 export function registerUser(name, email, password) {
   return createUserWithEmailAndPassword(auth, email, password)
@@ -96,43 +90,62 @@ export async function getAllPosts() {
     }
     return post;
   });
-
   return listPost;
 };
-
-// export const editPost = async (idPost, postText) => {
-//   const postIdEdit = doc(db, 'post', idPost);
-//   console.log(textPost);
-//   return await updateDoc(postIdEdit, { post: postText })
-// };
 
 export const deletePost = async (idPost) => {
   const del = await deleteDoc(doc(db, 'post', idPost)); 
   return del;
 };
 
-export async function like (id, user){
-  const collectionPost = await db.collection('post');
-  const promiseLike =  collectionPost
-  .doc(id)
-  .getDocs()
-  .then((post) => {
-    let likes = post.data().like;
-    if (likes.includes(user)) {
-      likes = likes.filter((userLikedId) => userLikedId !== user);
-    } else {
-      likes.push(user);
-    }
+export async function getPostById(idPost) {
+  const post = await getDoc(doc(db, 'post', idPost)); 
+  return post.data();
+}
 
-    return collectionPost
-      .doc(id)
-      .update({
-        likes,
-
-      });
-  });
-return promiseLike;
+export async function likePost (idPost) {
+  const postId = await getPostById(idPost);
+  const loggedUser = current().uid;
+  let likes = postId.like;
+  let liked;
+  if (postId.like.includes(loggedUser)) {
+    liked = false;
+    likes = likes.filter((id) => id !== loggedUser)
+  } else {
+    liked = true;
+    likes.push(loggedUser)
+  }
+  await updateDoc(doc(db, 'post', idPost), {
+    like: likes 
+  })
+  return {
+    liked,
+    count: likes.length
+  }
 };
+
+// export async function like (id, user){
+//   const collectionPost = await db.collection('post');
+//   const promiseLike =  collectionPost
+//   .doc(id)
+//   .getDocs()
+//   .then((post) => {
+//     let likes = post.data().like;
+//     if (likes.includes(user)) {
+//       likes = likes.filter((userLikedId) => userLikedId !== user);
+//     } else {
+//       likes.push(user);
+//     }
+
+//     return collectionPost
+//       .doc(id)
+//       .update({
+//         likes,
+
+//       });
+//   });
+// return promiseLike;
+// };
 
 export const logout = () => {
   const logoutUser = auth.signOut();

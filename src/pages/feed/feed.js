@@ -3,7 +3,7 @@ import {
   getAllPosts, 
   logout,
   deletePost,
-  like,
+  likePost
 } from '/firebase.js';
 
 export default function Feed() {
@@ -45,27 +45,27 @@ export default function Feed() {
     getAllPosts().then(posts => {
       console.log(posts);
       const postCreated = posts.map(post => `
-        <li data-id="${post.id}" class="allposts">
-          <div class='identification'> 
+        <li class="allposts" data-id="${post.id}">
+          <div class="identification"> 
             <div>
-              <img class='profile-img' src='${post.photo}'>
+              <img class="profile-img" src="${post.photo}">
             </div>
-            <div class='text-identification'>
-            <p class='username'><b>${post.displayName}</b></p>
-            <p class='data-post'> Postado em ${post.data} </p>
+            <div class="text-identification">
+            <p class="username"><b>${post.displayName}</b></p>
+            <p class="data-post"> Postado em ${post.data} às ${post.hour}H</p>
             </div>
           </div>
-          <div class='text-post'>
-            <p class='post-print'> ${post.post} </p>
+          <div class="text-post">
+            <p class="post-print"> ${post.post} </p>
           </div>
-          <div class='all-btn'> 
-            <div class='like'>
-              <img id="like-post" class="like-post" src="./img/like.png" alt="Botão de like">
-              <p class='like-length'> ${post.like.length} </p>
+          <div class="all-btn"> 
+            <div class="like">
+              <img class="like-post" data-like="true" src="./img/like.png" alt="Botão de like">
+              <p class="like-length"> ${post.like.length} </p>
             </div>
             <div class="action-btn">
-              <img id="edit-post" class="edit-post" src="./img/edit.png" alt="Botão de edição">
-              <img id="delete-post"  data-delete="true" class="delete-post" src="./img/trash.png" alt="Botão de deletar">
+              <img class="edit-post" data-edit="true" src="./img/edit.png" alt="Botão de edição">
+              <img class="delete-post" data-delete="true" src="./img/trash.png" alt="Botão de deletar">
             </div>
           </div>
         </li>`
@@ -73,27 +73,27 @@ export default function Feed() {
       postList.innerHTML = postCreated;
 
       const postsElements = feed.querySelectorAll(".allposts");
-      const likePost = feed.querySelector(".like-post");
-
       postsElements.forEach(post => {
         post.addEventListener('click', (e) => {
-         if(e.target.dataset.delete){
-          deletePost(e.currentTarget.dataset.id)
+          const id = e.currentTarget.dataset.id;
+
+          if(e.target.dataset.delete){
+          deletePost(id)
           .then(() => {
             post.remove(); 
           })
+          }
 
-         }
+          if(e.target.dataset.like){
+            const likeCount = feed.querySelector(".like-length");
+            likePost(id)
+            .then((status) => {
+              likeCount.textContent = status.count;
+            })         
+          }
         })
       })
-
-       
-      likePost.addEventListener("click", (e) => {
-        e.target.dataset.like;
-        like();
-      });
-    })
-
+    
     addPost.onclick = function() {
         modalPost.style.display = "block";
         addPost.style.display = "none";
@@ -125,8 +125,6 @@ export default function Feed() {
       logout();
       window.location.hash = "login";
     });
-
+  })
   return feed;
 }
-
-
