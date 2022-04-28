@@ -63,7 +63,7 @@ export const signInGoogle = () => {
 };
 
 export const createPost = async (postText) => {
-  const postUser = await addDoc(collection(db, 'post'), {
+  return addDoc(collection(db, 'post'), {
     photo: current().photoURL,
     displayName: current().displayName,
     email: current().email,
@@ -73,9 +73,6 @@ export const createPost = async (postText) => {
     like: [],
     user: current().uid,
   })
-  .then(() => true)
-  .catch((error) => error);
- return postUser;
 };
 
 export async function getAllPosts() {
@@ -90,12 +87,18 @@ export async function getAllPosts() {
     }
     return post;
   });
+  console.log(listPost)
   return listPost;
 };
 
 export const deletePost = async (idPost) => {
   const del = await deleteDoc(doc(db, 'post', idPost)); 
   return del;
+};
+export const editPost = async (idPost, postText) => {
+ await updateDoc(doc(db, 'post', idPost), {
+  post: postText,
+ }); 
 };
 
 export async function getPostById(idPost) {
@@ -124,29 +127,6 @@ export async function likePost (idPost) {
   }
 };
 
-// export async function like (id, user){
-//   const collectionPost = await db.collection('post');
-//   const promiseLike =  collectionPost
-//   .doc(id)
-//   .getDocs()
-//   .then((post) => {
-//     let likes = post.data().like;
-//     if (likes.includes(user)) {
-//       likes = likes.filter((userLikedId) => userLikedId !== user);
-//     } else {
-//       likes.push(user);
-//     }
-
-//     return collectionPost
-//       .doc(id)
-//       .update({
-//         likes,
-
-//       });
-//   });
-// return promiseLike;
-// };
-
 export const logout = () => {
   const logoutUser = auth.signOut();
   return logoutUser;
@@ -157,28 +137,3 @@ export function stayLoggedIn(callback) {
     callback(user !== null);
   });
 }
-
-
-// export async function like (id, user){
-//   const collectionPost = await db.collection('post');
-//   const promiseLike =  collectionPost
-//   .doc(id)
-//   .getDocs()
-//   .then((post) => {
-//     let likes = post.data().like;
-//     if (likes.includes(user)) {
-//       likes = likes.filter((userLikedId) => userLikedId !== user);
-//     } else {
-//       likes.push(user);
-//     }
-
-//     return collectionPost
-//       .doc(id)
-//       .update({
-//         likes,
-
-//       });
-//   });
-// return promiseLike;
-// }
-    

@@ -1,9 +1,11 @@
 import {
+  current,
   createPost, 
   getAllPosts, 
   logout,
   deletePost,
-  likePost
+  likePost, 
+  editPost
 } from '/firebase.js';
 
 export default function Feed() {
@@ -41,35 +43,44 @@ export default function Feed() {
     const closePost = feed.querySelector('#close-post');
     const postFeed = feed.querySelector('#post-textarea');
     const postList = feed.querySelector('#container-post');
+    const user = current().uid
 
-    getAllPosts().then(posts => {
-      console.log(posts);
-      const postCreated = posts.map(post => `
+
+    getAllPosts()
+    .then(posts => {
+      const postCreated = posts.map(post => {
+        const btnsAction = post.user == user? `
+        <div class="action-btn">
+          <img class="edit-post" data-edit="true" src="./img/edit.png" alt="Botão de edição">
+          <img class="delete-post" data-delete="true" src="./img/trash.png" alt="Botão de deletar">
+        </div> ` : '';
+        return `
         <li class="allposts" data-id="${post.id}">
           <div class="identification"> 
             <div>
               <img class="profile-img" src="${post.photo}">
             </div>
             <div class="text-identification">
-            <p class="username"><b>${post.displayName}</b></p>
-            <p class="data-post"> Postado em ${post.data} às ${post.hour}H</p>
+              <p class="username"><b>${post.displayName}</b></p>
+              <p class="data-post"> Postado em ${post.data} às ${post.hour}H </p>
             </div>
           </div>
           <div class="text-post">
-            <p class="post-print"> ${post.post} </p>
+            <p class="post-print" data-idtext="${post.id}" data-text="${post.post}" contentEditable="false"> ${post.post} </p>
+            <div class="edit-action" style ="display: none">
+              <button data-save="true">Salvar</button>
+              <button data-cancel="true">Cancelar</button>
+            </div>
           </div>
           <div class="all-btn"> 
+          ${btnsAction}
             <div class="like">
-              <img class="like-post" data-like="true" src="./img/like.png" alt="Botão de like">
-              <p class="like-length"> ${post.like.length} </p>
-            </div>
-            <div class="action-btn">
-              <img class="edit-post" data-edit="true" src="./img/edit.png" alt="Botão de edição">
-              <img class="delete-post" data-delete="true" src="./img/trash.png" alt="Botão de deletar">
+              <img class="like-post" data-like="true" src="./img/${post.like.includes(user) ? 'liked': 'like'}.png" alt="Botão de like">
+              <p class="like-length"> ${post.like.length}</p>
             </div>
           </div>
         </li>`
-      ).join('')
+      }).join('')
       postList.innerHTML = postCreated;
 
       const postsElements = feed.querySelectorAll(".allposts");
@@ -85,11 +96,39 @@ export default function Feed() {
           }
 
           if(e.target.dataset.like){
-            const likeCount = feed.querySelector(".like-length");
+            const likeCount = e.currentTarget.querySelector(".like-length");
+            const likeIcon = e.currentTarget.querySelector(".like-post");
             likePost(id)
             .then((status) => {
               likeCount.textContent = status.count;
+              if (status.liked) {
+                likeIcon.setAttribute("src", "./img/liked.png")  
+              }
+              else {
+                likeIcon.setAttribute("src", "./img/like.png")  
+              }
             })         
+          }
+
+          if(e.target.dataset.edit) {
+            const postEdit = feed.querySelector(`[data-idtext="${id}"]`);
+            const btnsEdit = postEdit.nextElementSibling;
+            console.log(postEdit.nextElementSibling);
+            postEdit.contentEditable = true;
+            btnsEdit.style.display = "block";       
+          } else if(e.target.dataset.cancel) {
+            const postEdit = feed.querySelector(`[data-idtext="${id}"]`);
+            const buttonsEdit = postEdit.nextElementSibling;
+            postEdit.contentEditable = false;
+            buttonsEdit.style.display = "none";
+            postEdit.textContent= postEdit.dataset.text; 
+          } else if(e.target.dataset.save) {
+            const postEdit = feed.querySelector(`[data-idtext="${id}"]`);
+            const buttonsEdit = postEdit.nextElementSibling;
+            postEdit.contentEditable = false;
+            buttonsEdit.style.display = "none";
+            postEdit.dataset.text = postEdit.textContent; 
+            editPost(id, postEdit.textContent)
           }
         })
       })
@@ -112,7 +151,9 @@ export default function Feed() {
       modalPost.style.display = "none";
       addPost.style.display = "block";
       e.preventDefault();
-      createPost(postFeed.value);
+      createPost(postFeed.value)
+      .then (()=>
+      window.location.reload())
     });
 
     devBtn.addEventListener('click', (e) => {
