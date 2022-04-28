@@ -92,7 +92,7 @@ body {
   @media screen and (min-width: 1366px) {
     body {
       background-position: top;
-      overflow: hidden;
+      /* overflow: hidden; */
     }
 
     .box {

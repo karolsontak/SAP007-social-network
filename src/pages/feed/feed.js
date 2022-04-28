@@ -66,12 +66,12 @@ export default function Feed() {
           </div>
           <div class="text-post">
             <p class="post-print" data-idText="${post.id}" data-text="${post.post}" contentEditable="false"> ${post.post} </p>
+            <div class="edit-action" style ='display: none'>
+              <button data-save="true">Salvar</button>
+              <button data-cancel="true">Cancelar</button>
+            </div>
           </div>
           ${btnsAction}
-          <div class="edit-action" style ='display: none'>
-            <button data-save="true">Salvar</button>
-            <button data-cancel="true">Cancelar</button>
-          </div>
           <div class="all-btn"> 
             <div class="like">
               <img class="like-post" data-like="true" src="./img/${post.like.includes(user) ? 'liked': 'like'}.png" alt="Botão de like">
@@ -112,21 +112,21 @@ export default function Feed() {
 
           if(e.target.dataset.edit) {
             const postedit = feed.querySelector(`[data-idText='${id}']`);
-            const btnsEdit = postedit.nextSibling;
+            const btnsEdit = postedit.nextElementSibling;
             console.log(postedit.nextSibling);
-            postedit.contetEditable = true;
+            postedit.contentEditable = true;
             btnsEdit.style.display = "block";       
           } else if(e.target.dataset.cancel) {
             const postedit = feed.querySelector(`[data-idText='${id}']`);
-            const buttonsEdit = postedit.nextSibling;
-            postedit.contetEditable = false;
-            buttonsEdit.style.display = "none";
+            const btnsEdit = postedit.nextElementSibling;
+            postedit.contentEditable = false;
+            btnsEdit.style.display = "none";
             postedit.textContent= postedit.dataset.text; 
           } else if(e.target.dataset.save) {
             const postedit = feed.querySelector(`[data-idText='${id}']`);
-            const buttonsEdit = postedit.nextSibling;
-            postedit.contetEditable = false;
-            buttonsEdit.style.display = "none";
+            const btnsEdit = postedit.nextElementSibling;
+            postedit.contentEditable = false;
+            btnsEdit.style.display = "none";
             postedit.dataset.text = postedit.textContent; 
             editPost(id, postedit.textContent)
           }
