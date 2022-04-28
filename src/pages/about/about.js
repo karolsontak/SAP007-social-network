@@ -1,7 +1,7 @@
 export default function AboutUs() {
-    const aboutUs = document.createElement("div");
-    aboutUs.classList.add("about-post")
-    aboutUs.innerHTML = `  
+  const aboutUs = document.createElement('div');
+  aboutUs.classList.add('about-post');
+  aboutUs.innerHTML = `  
         <nav class="menu">
           <img id="home-btn" class="home-btn" alt="menu home" src="./img/home.png">
           <img id="perfil-btn" class="perfil-btn" alt="menu perfil" src="./img/perfil.png">
@@ -28,26 +28,26 @@ export default function AboutUs() {
             </div>   
         </section>
     `;
-  
-    const homeBtn = aboutUs.querySelector('#home-btn');
-    const devBtn = aboutUs.querySelector('#dev-btn');
-    const logoutBtn = aboutUs.querySelector('#logout-btn');
 
-    homeBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.location.hash = "feed";
-    });
+  const homeBtn = aboutUs.querySelector('#home-btn');
+  const devBtn = aboutUs.querySelector('#dev-btn');
+  const logoutBtn = aboutUs.querySelector('#logout-btn');
 
-    devBtn.addEventListener('click', (e) => {
+  homeBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    window.location.hash = "about";
-    });
+    window.location.hash = 'feed';
+  });
 
-    logoutBtn.addEventListener('click', (e) => {
+  devBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.hash = 'about';
+  });
+
+  logoutBtn.addEventListener('click', (e) => {
     e.preventDefault();
     logout();
-    window.location.hash = "login";
-    });
+    window.location.hash = 'login';
+  });
 
-    return aboutUs;
+  return aboutUs;
 }
