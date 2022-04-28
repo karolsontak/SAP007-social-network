@@ -15,8 +15,7 @@ import {
   orderBy,
   updateDoc, 
   deleteDoc,
-  arrayRemove,
-  arrayUnion
+  getDoc
 } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
 import { 
   auth, 
@@ -64,7 +63,7 @@ export const signInGoogle = () => {
 };
 
 export const createPost = async (postText) => {
-  const postUser = await addDoc(collection(db, 'post'), {
+  return addDoc(collection(db, 'post'), {
     photo: current().photoURL,
     displayName: current().displayName,
     email: current().email,
@@ -74,9 +73,6 @@ export const createPost = async (postText) => {
     like: [],
     user: current().uid,
   })
-  .then(() => true)
-  .catch((error) => error);
- return postUser;
 };
 
 export async function getAllPosts() {
@@ -91,50 +87,44 @@ export async function getAllPosts() {
     }
     return post;
   });
-
+  console.log(listPost)
   return listPost;
 };
-
 
 export const deletePost = async (idPost) => {
   const del = await deleteDoc(doc(db, 'post', idPost)); 
   return del;
 };
+export const editPost = async (idPost, postText) => {
+ await updateDoc(doc(db, 'post', idPost), {
+  post: postText,
+ }); 
+};
 
+export async function getPostById(idPost) {
+  const post = await getDoc(doc(db, 'post', idPost)); 
+  return post.data();
+}
 
-
-// export const editPost = async (idPost, postText) => {
-//   const postIdEdit = doc(db, 'post', idPost);
-//   console.log(textPost);
-//   return await updateDoc(postIdEdit, { post: postText })
-// };
-
-// export const uid = () => {
-//   const userUid = auth.currentUser.uid;
-//   return userUid;
-// };
-
-export async function like (id, user){
-  const collectionPost = await db.collection('post');
-  const promiseLike =  collectionPost
-  .doc(id)
-  .getDocs()
-  .then((post) => {
-    let likes = post.data().like;
-    if (likes.includes(user)) {
-      likes = likes.filter((userLikedId) => userLikedId !== user);
-    } else {
-      likes.push(user);
-    }
-
-    return collectionPost
-      .doc(id)
-      .update({
-        likes,
-
-      });
-  });
-return promiseLike;
+export async function likePost (idPost) {
+  const postId = await getPostById(idPost);
+  const loggedUser = current().uid;
+  let likes = postId.like;
+  let liked;
+  if (postId.like.includes(loggedUser)) {
+    liked = false;
+    likes = likes.filter((id) => id !== loggedUser)
+  } else {
+    liked = true;
+    likes.push(loggedUser)
+  }
+  await updateDoc(doc(db, 'post', idPost), {
+    like: likes 
+  })
+  return {
+    liked,
+    count: likes.length
+  }
 };
 
 export const logout = () => {
@@ -147,28 +137,3 @@ export function stayLoggedIn(callback) {
     callback(user !== null);
   });
 }
-
-
-// export async function like (id, user){
-//   const collectionPost = await db.collection('post');
-//   const promiseLike =  collectionPost
-//   .doc(id)
-//   .getDocs()
-//   .then((post) => {
-//     let likes = post.data().like;
-//     if (likes.includes(user)) {
-//       likes = likes.filter((userLikedId) => userLikedId !== user);
-//     } else {
-//       likes.push(user);
-//     }
-
-//     return collectionPost
-//       .doc(id)
-//       .update({
-//         likes,
-
-//       });
-//   });
-// return promiseLike;
-// }
-    

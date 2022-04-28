@@ -49,7 +49,7 @@ export default function Login() {
     if (email.value) {
       signIn(email.value, password.value)
         .then(() => {
-          window.location.hash = "feed"; // ir para o feed
+          window.location.hash = "feed"; 
         })
         .catch((error) => {
             if (error.code === "auth/wrong-password") {
@@ -67,7 +67,7 @@ export default function Login() {
     e.preventDefault();
     signInGoogle()
     .then(() => {
-      window.location.hash = "feed"; // ir para o feed
+      window.location.hash = "feed";
     })
     .catch((error) => {
       const errorCode = error.code;
