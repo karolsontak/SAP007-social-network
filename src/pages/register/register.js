@@ -1,8 +1,8 @@
-import { registerUser } from "/firebase.js";
+import { registerUser } from '/firebase.js';
 
 export default function Register() {
-  const register = document.createElement("div");
-  register.classList.add("register-box")
+  const register = document.createElement('div');
+  register.classList.add('register-box');
   register.innerHTML = `
       <main class="box">
         <div class="banner">
@@ -24,27 +24,27 @@ export default function Register() {
       </main>
     `;
 
-  const name = register.querySelector("#name");
-  const photo = register.querySelector("#photo-ano");
-  const email = register.querySelector("#email");
-  const password = register.querySelector("#password");
-  const errorMessage = register.querySelector("#error-message");
+  const name = register.querySelector('#name');
+  const photo = register.querySelector('#photo-ano');
+  const email = register.querySelector('#email');
+  const password = register.querySelector('#password');
+  const errorMessage = register.querySelector('#error-message');
 
-  const gobackButton = register.querySelector("#gobackButton");
-  gobackButton.addEventListener("click", (e) => {
+  const gobackButton = register.querySelector('#gobackButton');
+  gobackButton.addEventListener('click', (e) => {
     e.preventDefault();
-    window.location.hash = "home";
+    window.location.hash = 'home';
   });
 
   const signUpButtonRegister = register.querySelector(
-    "#register-button"
+    '#register-button',
   );
-  signUpButtonRegister.addEventListener("click", (e) => {
+  signUpButtonRegister.addEventListener('click', (e) => {
     e.preventDefault();
     if (name.value, email.value, password.value) {
       registerUser(name.value, email.value, password.value)
         .then(() => {
-          window.location.hash = "feed";
+          window.location.hash = 'feed';
         })
         .catch((error) => {
           if (error.code === 'auth/uid-already-exists') {
@@ -58,8 +58,8 @@ export default function Register() {
           }
         });
     } else if (name.value === '' || email.value === '' || password.value === '') {
-      errorMessage.innerHTML = "Preencha todos os campos!";
-      }
+      errorMessage.innerHTML = 'Preencha todos os campos!';
+    }
   });
 
   return register;

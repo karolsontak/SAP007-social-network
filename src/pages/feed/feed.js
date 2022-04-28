@@ -1,16 +1,16 @@
 import {
   current,
-  createPost, 
-  getAllPosts, 
+  createPost,
+  getAllPosts,
   logout,
   deletePost,
-  likePost, 
-  editPost
+  likePost,
+  editPost,
 } from '/firebase.js';
 
 export default function Feed() {
-  const feed = document.createElement("div");
-  feed.classList.add("feed-post")
+  const feed = document.createElement('div');
+  feed.classList.add('feed-post');
   feed.innerHTML = `  
       <nav class="menu">
         <img id="home-btn" class="home-btn" alt="menu home" src="./img/home.png">
@@ -34,22 +34,21 @@ export default function Feed() {
       </section>
     `;
 
-    const addPost = feed.querySelector('#add-post');
-    const homeBtn = feed.querySelector('#home-btn');
-    const devBtn = feed.querySelector('#dev-btn');
-    const logoutBtn = feed.querySelector('#logout-btn');
-    const modalPost = feed.querySelector('#post');
-    const postBtn = feed.querySelector('#post-btn');
-    const closePost = feed.querySelector('#close-post');
-    const postFeed = feed.querySelector('#post-textarea');
-    const postList = feed.querySelector('#container-post');
-    const user = current().uid
+  const addPost = feed.querySelector('#add-post');
+  const homeBtn = feed.querySelector('#home-btn');
+  const devBtn = feed.querySelector('#dev-btn');
+  const logoutBtn = feed.querySelector('#logout-btn');
+  const modalPost = feed.querySelector('#post');
+  const postBtn = feed.querySelector('#post-btn');
+  const closePost = feed.querySelector('#close-post');
+  const postFeed = feed.querySelector('#post-textarea');
+  const postList = feed.querySelector('#container-post');
+  const user = current().uid;
 
-
-    getAllPosts()
-    .then(posts => {
-      const postCreated = posts.map(post => {
-        const btnsAction = post.user == user? `
+  getAllPosts()
+    .then((posts) => {
+      const postCreated = posts.map((post) => {
+        const btnsAction = post.user === user ? `
         <div class="action-btn">
           <img class="edit-post" data-edit="true" src="./img/edit.png" alt="Botão de edição">
           <img class="delete-post" data-delete="true" src="./img/trash.png" alt="Botão de deletar">
@@ -75,7 +74,7 @@ export default function Feed() {
           <div class="all-btn"> 
           ${btnsAction}
             <div class="like">
-              <img class="like-post" data-like="true" src="./img/${post.like.includes(user) ? 'liked': 'like'}.png" alt="Botão de like">
+              <img class="like-post" data-like="true" src="./img/${post.like.includes(user) ? 'liked' : 'like'}.png" alt="Botão de like">
               <p class="like-length"> ${post.like.length}</p>
             </div>
           </div>
@@ -90,8 +89,8 @@ export default function Feed() {
       }).join('')
       postList.innerHTML = postCreated;
 
-      const postsElements = feed.querySelectorAll(".allposts");
-      postsElements.forEach(post => {
+      const postsElements = feed.querySelectorAll('.allposts');
+      postsElements.forEach((post) => {
         post.addEventListener('click', (e) => {
           const id = e.currentTarget.dataset.id;
 
@@ -111,22 +110,21 @@ export default function Feed() {
           }
               
 
-          if(e.target.dataset.like){
-            const likeCount = e.currentTarget.querySelector(".like-length");
-            const likeIcon = e.currentTarget.querySelector(".like-post");
+          if (e.target.dataset.like) {
+            const likeCount = e.currentTarget.querySelector('.like-length');
+            const likeIcon = e.currentTarget.querySelector('.like-post');
             likePost(id)
-            .then((status) => {
-              likeCount.textContent = status.count;
-              if (status.liked) {
-                likeIcon.setAttribute("src", "./img/liked.png")  
-              }
-              else {
-                likeIcon.setAttribute("src", "./img/like.png")  
-              }
-            })         
+              .then((status) => {
+                likeCount.textContent = status.count;
+                if (status.liked) {
+                  likeIcon.setAttribute('src', './img/liked.png');
+                } else {
+                  likeIcon.setAttribute('src', './img/like.png');
+                }
+              });
           }
 
-          if(e.target.dataset.edit) {
+          if (e.target.dataset.edit) {
             const postEdit = feed.querySelector(`[data-idtext="${id}"]`);
             const btnsEdit = postEdit.nextElementSibling;
             postEdit.contentEditable = true;
@@ -135,52 +133,51 @@ export default function Feed() {
             const postEdit = feed.querySelector(`[data-idtext="${id}"]`);
             const buttonsEdit = postEdit.nextElementSibling;
             postEdit.contentEditable = false;
-            buttonsEdit.style.display = "none";
-            postEdit.textContent= postEdit.dataset.text; 
-          } else if(e.target.dataset.save) {
+            buttonsEdit.style.display = 'none';
+            postEdit.textContent = postEdit.dataset.text;
+          } else if (e.target.dataset.save) {
             const postEdit = feed.querySelector(`[data-idtext="${id}"]`);
             const buttonsEdit = postEdit.nextElementSibling;
             postEdit.contentEditable = false;
-            buttonsEdit.style.display = "none";
-            postEdit.dataset.text = postEdit.textContent; 
-            editPost(id, postEdit.textContent)
+            buttonsEdit.style.display = 'none';
+            postEdit.dataset.text = postEdit.textContent;
+            editPost(id, postEdit.textContent);
           }
-        })
-      })
-    
-    addPost.onclick = function() {
-        modalPost.style.display = "block";
-        addPost.style.display = "none";
-    }
-    closePost.onclick = function() {
-        modalPost.style.display = "none";
-        addPost.style.display = "block";
-      }
+        });
+      });
 
-    homeBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      window.location.hash = "feed";
-    });
+      addPost.addEventListener('click', () => {
+        modalPost.style.display = 'block';
+        addPost.style.display = 'none';
+      });
+      closePost.addEventListener('click', () => {
+        modalPost.style.display = 'none';
+        addPost.style.display = 'block';
+      });
 
-    postBtn.addEventListener("click", (e) => {
-      modalPost.style.display = "none";
-      addPost.style.display = "block";
-      e.preventDefault();
-      createPost(postFeed.value)
-      .then (()=>
-      window.location.reload())
-    });
+      homeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.hash = 'feed';
+      });
 
-    devBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.location.hash = "about";
-    });
+      postBtn.addEventListener('click', (e) => {
+        modalPost.style.display = 'none';
+        addPost.style.display = 'block';
+        e.preventDefault();
+        createPost(postFeed.value)
+          .then(() => window.location.reload());
+      });
 
-    logoutBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      logout();
-      window.location.hash = "login";
+      devBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.hash = 'about';
+      });
+
+      logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        logout();
+        window.location.hash = 'login';
+      });
     });
-  })
   return feed;
 }
