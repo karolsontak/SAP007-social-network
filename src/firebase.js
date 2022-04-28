@@ -28,11 +28,6 @@ export const current = () => {
   return user;
 };
 
-// export const uid = () => {
-//   const userUid = auth.currentUser.uid;
-//   return userUid;
-// };
-
 export function registerUser(name, email, password) {
   return createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
@@ -100,16 +95,24 @@ export async function getAllPosts() {
   return listPost;
 };
 
+
+export const deletePost = async (idPost) => {
+  const del = await deleteDoc(doc(db, 'post', idPost)); 
+  return del;
+};
+
+
+
 // export const editPost = async (idPost, postText) => {
 //   const postIdEdit = doc(db, 'post', idPost);
 //   console.log(textPost);
 //   return await updateDoc(postIdEdit, { post: postText })
 // };
 
-export const deletePost = async (idPost) => {
-  const del = await deleteDoc(doc(db, 'post', idPost)); 
-  return del;
-};
+// export const uid = () => {
+//   const userUid = auth.currentUser.uid;
+//   return userUid;
+// };
 
 export async function like (id, user){
   const collectionPost = await db.collection('post');
