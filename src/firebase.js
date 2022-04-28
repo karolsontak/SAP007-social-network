@@ -63,7 +63,7 @@ export const signInGoogle = () => {
 };
 
 export const createPost = async (postText) => {
-  const postUser = await addDoc(collection(db, 'post'), {
+  return addDoc(collection(db, 'post'), {
     photo: current().photoURL,
     displayName: current().displayName,
     email: current().email,
@@ -73,9 +73,6 @@ export const createPost = async (postText) => {
     like: [],
     user: current().uid,
   })
-  .then(() => true)
-  .catch((error) => error);
- return postUser;
 };
 
 export async function getAllPosts() {
