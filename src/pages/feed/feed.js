@@ -67,9 +67,9 @@ export default function Feed() {
           </div>
           <div class="text-post">
             <p class="post-print" data-idtext="${post.id}" data-text="${post.post}" contentEditable="false"> ${post.post} </p>
-            <div class="edit-action" style ="display: none">
-              <button data-save="true">Salvar</button>
-              <button data-cancel="true">Cancelar</button>
+            <div class="edit-action">
+            <img class="edit-icon" data-save="true" src="./img/checkgreen.png" alt="Botão de edição">
+            <img class="edit-icon" data-cancel="true" src="./img/cancel.png" alt="Botão de edição">
             </div>
           </div>
           <div class="all-btn"> 
@@ -77,6 +77,13 @@ export default function Feed() {
             <div class="like">
               <img class="like-post" data-like="true" src="./img/${post.like.includes(user) ? 'liked': 'like'}.png" alt="Botão de like">
               <p class="like-length"> ${post.like.length}</p>
+            </div>
+          </div>
+          <div class="modal">
+            <div class="internal-modal">
+               <p> DESEJA EXCLUIR SEU POST? </p>
+               <button class="btn-del" data-yes="true"> SIM </button>
+               <button class="btn-del" data-no="true"> NÃO </button>
             </div>
           </div>
         </li>`
@@ -89,11 +96,20 @@ export default function Feed() {
           const id = e.currentTarget.dataset.id;
 
           if(e.target.dataset.delete){
-          deletePost(id)
-          .then(() => {
-            post.remove(); 
-          })
+            const modal = e.currentTarget.querySelector('.modal');
+            modal.style.display = 'flex';
+          } else if(e.target.dataset.yes){
+              const modal = e.currentTarget.querySelector('.modal');
+              modal.style.display = 'none';
+              deletePost(id)
+              .then(() => {
+                post.remove(); 
+              })
+          } else if(e.target.dataset.no){
+              const modal = e.currentTarget.querySelector('.modal');
+              modal.style.display = 'none';
           }
+              
 
           if(e.target.dataset.like){
             const likeCount = e.currentTarget.querySelector(".like-length");
@@ -113,9 +129,8 @@ export default function Feed() {
           if(e.target.dataset.edit) {
             const postEdit = feed.querySelector(`[data-idtext="${id}"]`);
             const btnsEdit = postEdit.nextElementSibling;
-            console.log(postEdit.nextElementSibling);
             postEdit.contentEditable = true;
-            btnsEdit.style.display = "block";       
+            btnsEdit.style.display = "flex";       
           } else if(e.target.dataset.cancel) {
             const postEdit = feed.querySelector(`[data-idtext="${id}"]`);
             const buttonsEdit = postEdit.nextElementSibling;

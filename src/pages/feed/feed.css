@@ -120,6 +120,38 @@ ul {
   align-items: center;
   flex-direction: row-reverse;
 }
+.modal{
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #000000aa;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.internal-modal{
+  padding: 16px;
+  background-color: rgba(52, 52, 52, 0.5);
+  border-radius: 8px;
+}
+.btn-del{
+  background-color: #e335dc;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  color: #fefefe;
+  margin-top: 1%;
+  margin-bottom: 3%;
+}
+.edit-action{
+  display: none;
+}
+.edit-icon{
+  width: 8%;
+  cursor: pointer;
+}
 
 .like {
   display: flex;
