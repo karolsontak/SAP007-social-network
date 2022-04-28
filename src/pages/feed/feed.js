@@ -49,10 +49,11 @@ export default function Feed() {
     getAllPosts()
     .then(posts => {
       const postCreated = posts.map(post => {
-        const btnsAction = post.user == user? `<div class="action-btn">
-        <img class="edit-post" data-edit="true" src="./img/edit.png" alt="Botão de edição">
-        <img class="delete-post" data-delete="true" src="./img/trash.png" alt="Botão de deletar">
-      </div> ` : '';
+        const btnsAction = post.user == user? `
+        <div class="action-btn">
+          <img class="edit-post" data-edit="true" src="./img/edit.png" alt="Botão de edição">
+          <img class="delete-post" data-delete="true" src="./img/trash.png" alt="Botão de deletar">
+        </div> ` : '';
         return `
         <li class="allposts" data-id="${post.id}">
           <div class="identification"> 
@@ -60,24 +61,23 @@ export default function Feed() {
               <img class="profile-img" src="${post.photo}">
             </div>
             <div class="text-identification">
-            <p class="username"><b>${post.displayName}</b></p>
-            <p class="data-post"> Postado em ${post.data} às ${post.hour}H </p>
+              <p class="username"><b>${post.displayName}</b></p>
+              <p class="data-post"> Postado em ${post.data} às ${post.hour}H </p>
             </div>
           </div>
           <div class="text-post">
-            <p class="post-print" data-idText="${post.id}" data-text="${post.post}" contentEditable="false"> ${post.post} </p>
-            <div class="edit-action" style ='display: none'>
+            <p class="post-print" data-idtext="${post.id}" data-text="${post.post}" contentEditable="false"> ${post.post} </p>
+            <div class="edit-action" style ="display: none">
               <button data-save="true">Salvar</button>
               <button data-cancel="true">Cancelar</button>
             </div>
           </div>
-          ${btnsAction}
           <div class="all-btn"> 
+          ${btnsAction}
             <div class="like">
               <img class="like-post" data-like="true" src="./img/${post.like.includes(user) ? 'liked': 'like'}.png" alt="Botão de like">
-              <p class="like-length"> ${post.like.length} </p>
+              <p class="like-length"> ${post.like.length}</p>
             </div>
-            
           </div>
         </li>`
       }).join('')
@@ -111,24 +111,24 @@ export default function Feed() {
           }
 
           if(e.target.dataset.edit) {
-            const postedit = feed.querySelector(`[data-idText='${id}']`);
-            const btnsEdit = postedit.nextElementSibling;
-            console.log(postedit.nextSibling);
-            postedit.contentEditable = true;
+            const postEdit = feed.querySelector(`[data-idtext="${id}"]`);
+            const btnsEdit = postEdit.nextElementSibling;
+            console.log(postEdit.nextElementSibling);
+            postEdit.contentEditable = true;
             btnsEdit.style.display = "block";       
           } else if(e.target.dataset.cancel) {
-            const postedit = feed.querySelector(`[data-idText='${id}']`);
-            const btnsEdit = postedit.nextElementSibling;
-            postedit.contentEditable = false;
-            btnsEdit.style.display = "none";
-            postedit.textContent= postedit.dataset.text; 
+            const postEdit = feed.querySelector(`[data-idtext="${id}"]`);
+            const buttonsEdit = postEdit.nextElementSibling;
+            postEdit.contentEditable = false;
+            buttonsEdit.style.display = "none";
+            postEdit.textContent= postEdit.dataset.text; 
           } else if(e.target.dataset.save) {
-            const postedit = feed.querySelector(`[data-idText='${id}']`);
-            const btnsEdit = postedit.nextElementSibling;
-            postedit.contentEditable = false;
-            btnsEdit.style.display = "none";
-            postedit.dataset.text = postedit.textContent; 
-            editPost(id, postedit.textContent)
+            const postEdit = feed.querySelector(`[data-idtext="${id}"]`);
+            const buttonsEdit = postEdit.nextElementSibling;
+            postEdit.contentEditable = false;
+            buttonsEdit.style.display = "none";
+            postEdit.dataset.text = postEdit.textContent; 
+            editPost(id, postEdit.textContent)
           }
         })
       })
@@ -151,7 +151,9 @@ export default function Feed() {
       modalPost.style.display = "none";
       addPost.style.display = "block";
       e.preventDefault();
-      createPost(postFeed.value);
+      createPost(postFeed.value)
+      .then (()=>
+      window.location.reload())
     });
 
     devBtn.addEventListener('click', (e) => {
