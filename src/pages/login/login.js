@@ -37,10 +37,8 @@ export default function Login() {
   const googleBtn = login.querySelector('#google-button');
   const email = login.querySelector('.email-login');
   const password = login.querySelector('.password-login');
-  const loginError = login.querySelector('#loginError');
 
-  signUpButton.addEventListener('click', (e) => {
-    e.preventDefault();
+  signUpButton.addEventListener('click', () => {
     window.location.hash = 'register';
   });
 
@@ -50,15 +48,6 @@ export default function Login() {
       signIn(email.value, password.value)
         .then(() => {
           window.location.hash = 'feed';
-        })
-        .catch((error) => {
-          if (error.code === 'auth/wrong-password') {
-            loginError.innerHTML = 'Senha incorreta';
-          } else if (error.code === 'auth/invalid-email') {
-            loginError.innerHTML = 'E-mail incorreto';
-          } else {
-            loginError.innerHTML = 'E-mail não cadastrado.';
-          }
         });
     }
   });

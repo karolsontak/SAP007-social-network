@@ -17,10 +17,7 @@ import {
 } from './export.js';
 import { auth, db } from "./config.js"; //eslint-disable-line
 
-export const current = () => {
-  const user = auth.currentUser;
-  return user;
-};
+export const current = () => auth.currentUser;
 
 export function registerUser(name, email, password) {
   return createUserWithEmailAndPassword(auth, email, password).then(
@@ -77,6 +74,7 @@ export const deletePost = async (idPost) => {
   const del = await deleteDoc(doc(db, 'post', idPost));
   return del;
 };
+
 export const editPost = async (idPost, postText) => {
   await updateDoc(doc(db, 'post', idPost), {
     post: postText,

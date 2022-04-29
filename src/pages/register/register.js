@@ -29,35 +29,20 @@ export default function Register() {
   const name = register.querySelector('.name');
   const email = register.querySelector('.email');
   const password = register.querySelector('.password');
-  const errorMessage = register.querySelector('#error-message');
-
+  const signUpButtonRegister = register.querySelector('#register-button');
   const gobackButton = register.querySelector('#gobackButton');
-  gobackButton.addEventListener('click', (e) => {
-    e.preventDefault();
+
+  gobackButton.addEventListener('click', () => {
     window.location.hash = 'home';
   });
 
-  const signUpButtonRegister = register.querySelector('#register-button');
   signUpButtonRegister.addEventListener('click', (e) => {
     e.preventDefault();
     if (name.value && email.value && password.value) {
       registerUser(name.value, email.value, password.value)
         .then(() => {
           window.location.hash = 'feed';
-        })
-        .catch((error) => {
-          if (error.code === 'auth/uid-already-exists') {
-            errorMessage.innerHTML = 'E-mail já cadastrado';
-          } else if (error.code === 'auth/email-already-in-use') {
-            errorMessage.innerHTML = 'E-mail já cadastrado';
-          } else if (error.code === 'auth/invalid-email') {
-            errorMessage.innerHTML = 'E-mail invalido';
-          } else {
-            errorMessage.innerHTML = 'Erro! Preencha novamente.';
-          }
         });
-    } else if (name.value === '' || email.value === '' || password.value === '') {
-      errorMessage.innerHTML = 'Preencha todos os campos!';
     }
   });
 
