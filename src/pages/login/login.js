@@ -1,11 +1,11 @@
-import { 
-  signIn, 
-  signInGoogle 
-} from "/firebase.js";
+import {
+  signIn,
+  signInGoogle,
+} from '../../firebase.js';
 
 export default function Login() {
-  const login = document.createElement("div");
-  login.classList.add("login-box")
+  const login = document.createElement('div');
+  login.classList.add('login-box');
   login.innerHTML = `   
       <main class="box">
         <div class="banner">
@@ -14,8 +14,8 @@ export default function Login() {
         </div>
               
         <form class="login-form">
-          <input class="login-input" id="email" type="email" placeholder="E-MAIL" required>
-          <input class="login-input" id="password" type="password" placeholder="SENHA" required>
+          <input class="login-input email-login" type="email" placeholder="E-MAIL" required>
+          <input class="login-input password-login" type="password" placeholder="SENHA" required>
           <p id="loginError" class="error-message"></p>
         </form>
   
@@ -32,33 +32,33 @@ export default function Login() {
       </main>
       `;
 
-  const signUpButton = login.querySelector("#signup-button");
-  const signInButton = login.querySelector("#signin-button");
+  const signUpButton = login.querySelector('#signup-button');
+  const signInButton = login.querySelector('#signin-button');
   const googleBtn = login.querySelector('#google-button');
-  const email = login.querySelector("#email");
-  const password = login.querySelector("#password");
+  const email = login.querySelector('.email-login');
+  const password = login.querySelector('.password-login');
   const loginError = login.querySelector('#loginError');
 
-  signUpButton.addEventListener("click", (e) => {
+  signUpButton.addEventListener('click', (e) => {
     e.preventDefault();
-    window.location.hash = "register";
+    window.location.hash = 'register';
   });
 
-  signInButton.addEventListener("click", (e) => {
+  signInButton.addEventListener('click', (e) => {
     e.preventDefault();
     if (email.value) {
       signIn(email.value, password.value)
         .then(() => {
-          window.location.hash = "feed"; 
+          window.location.hash = 'feed';
         })
         .catch((error) => {
-            if (error.code === "auth/wrong-password") {
-              loginError.innerHTML = "Senha incorreta";
-            } else if (error.code === "auth/invalid-email") {
-              loginError.innerHTML = "E-mail incorreto";
-            } else {
-              loginError.innerHTML = "E-mail não cadastrado.";
-            }
+          if (error.code === 'auth/wrong-password') {
+            loginError.innerHTML = 'Senha incorreta';
+          } else if (error.code === 'auth/invalid-email') {
+            loginError.innerHTML = 'E-mail incorreto';
+          } else {
+            loginError.innerHTML = 'E-mail não cadastrado.';
+          }
         });
     }
   });
@@ -66,17 +66,10 @@ export default function Login() {
   googleBtn.addEventListener('click', (e) => {
     e.preventDefault();
     signInGoogle()
-    .then(() => {
-      window.location.hash = "feed";
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      if (errorCode === 'auth/account-exists-with-different-credential') {
-        // eslint-disable-next-line no-alert
-        alert('Essa conta já existe com uma credencial diferente');
-      }
-    })
-  });  
+      .then(() => {
+        window.location.hash = 'feed';
+      });
+  });
 
   return login;
 }
