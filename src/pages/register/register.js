@@ -1,6 +1,6 @@
 import {
   registerUser,
-} from '/firebase.js'; //eslint-disable-line
+} from '../../firebase.js';
 
 export default function Register() {
   const register = document.createElement('div');

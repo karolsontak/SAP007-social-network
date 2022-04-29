@@ -1,7 +1,7 @@
 import {
   signIn,
   signInGoogle,
-} from '/firebase.js'; //eslint-disable-line
+} from '../../firebase.js';
 
 export default function Login() {
   const login = document.createElement('div');
@@ -14,8 +14,8 @@ export default function Login() {
         </div>
               
         <form class="login-form">
-          <input class="login-input email" type="email" placeholder="E-MAIL" required>
-          <input class="login-input password" type="password" placeholder="SENHA" required>
+          <input class="login-input email-login" type="email" placeholder="E-MAIL" required>
+          <input class="login-input password-login" type="password" placeholder="SENHA" required>
           <p id="loginError" class="error-message"></p>
         </form>
   
@@ -35,8 +35,8 @@ export default function Login() {
   const signUpButton = login.querySelector('#signup-button');
   const signInButton = login.querySelector('#signin-button');
   const googleBtn = login.querySelector('#google-button');
-  const email = login.querySelector('.email');
-  const password = login.querySelector('.password');
+  const email = login.querySelector('.email-login');
+  const password = login.querySelector('.password-login');
   const loginError = login.querySelector('#loginError');
 
   signUpButton.addEventListener('click', (e) => {

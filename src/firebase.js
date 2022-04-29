@@ -5,8 +5,6 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   updateProfile,
-} from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js'; //eslint-disable-line
-import {
   collection,
   addDoc,
   getDocs,
@@ -16,8 +14,8 @@ import {
   updateDoc,
   deleteDoc,
   getDoc,
-} from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js'; //eslint-disable-line
-import { auth, db } from "/config.js"; //eslint-disable-line
+} from './export.js';
+import { auth, db } from "./config.js"; //eslint-disable-line
 
 export const current = () => {
   const user = auth.currentUser;
@@ -40,23 +38,21 @@ export function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
 
-const provider = new GoogleAuthProvider();
 export const signInGoogle = () => {
-  signInWithPopup(auth, provider);
+  const provider = new GoogleAuthProvider();
+  return signInWithPopup(auth, provider);
 };
 
-export const createPost = async (postText) => {
-  addDoc(collection(db, 'post'), {
-    photo: current().photoURL,
-    displayName: current().displayName,
-    email: current().email,
-    data: new Date().toLocaleDateString('pt-BR'),
-    hour: new Date().toLocaleTimeString([], { timeStyle: 'short' }),
-    post: postText,
-    like: [],
-    user: current().uid,
-  });
-};
+export const createPost = (postText) => addDoc(collection(db, 'post'), {
+  photo: current().photoURL,
+  displayName: current().displayName,
+  email: current().email,
+  data: new Date().toLocaleDateString('pt-BR'),
+  hour: new Date().toLocaleTimeString([], { timeStyle: 'short' }),
+  post: postText,
+  like: [],
+  user: current().uid,
+});
 
 export async function getAllPosts() {
   const collPost = query(
