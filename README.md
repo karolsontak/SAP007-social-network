@@ -16,7 +16,7 @@ pessoas que se interessam por investimentos.
 A ideia é que veteranos e iniciantes possam trocar informações e que todos possam
 ter acesso a um conteúdo dedicado e específicos para eles.
 
-Aqui você pode acessar nosso projeto: [clique aqui](https://karolsontak.github.io/SAP007-data-lovers/)
+Aqui você pode acessar nosso projeto: [SOCIAL TRADING](https://suelenescorcio.github.io/SAP007-social-network/)
 
 
 ![SOCIAL TRADING](./src/img/socialtrading.png)
@@ -183,6 +183,6 @@ H.U.:
 
 - [x] O planejamento deste projeto se encontra no [Trello](https://trello.com/b/wEUKUCOX/social-network)
 - [x] O repositório deste projeto se encontra no [GitHub](https://github.com/suelenescorcio/SAP007-social-network)
-- [x] O deploy deste projeto está hospedado no [GitPages](https://karolsontak.github.io/)
+- [x] O deploy deste projeto está hospedado no [GitPages](https://suelenescorcio.github.io/SAP007-social-network/)
 - [x] Este projeto foi desenvolvido por [Daiane Oltramari](https://github.com/daianeoltramari), [Karol Sontak](https://github.com/karolsontak) e [Suellen Escórcio](https://github.com/suelenescorcio).
 
