@@ -1,26 +1,21 @@
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, 
-  GoogleAuthProvider, 
-  signInWithPopup, 
-  onAuthStateChanged, 
-  updateProfile
-} from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
-import { 
-  collection, 
-  addDoc, 
-  getDocs, 
-  doc, 
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+  updateProfile,
+  collection,
+  addDoc,
+  getDocs,
+  doc,
   query,
   orderBy,
-  updateDoc, 
+  updateDoc,
   deleteDoc,
-  getDoc
-} from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
-import { 
-  auth, 
-  db 
-} from "/config.js";
+  getDoc,
+} from './export.js';
+import { auth, db } from "./config.js"; //eslint-disable-line
 
 export const current = () => {
   const user = auth.currentUser;
@@ -28,104 +23,91 @@ export const current = () => {
 };
 
 export function registerUser(name, email, password) {
-  return createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
-    const photoUser = './img/anonimo.png';
-    updateProfile(user, {
-      displayName: name,
-      photo: photoUser,
-    });
-    return user;
-  })
-  .catch((error) => {
-  });
+  return createUserWithEmailAndPassword(auth, email, password).then(
+    (userCredential) => {
+      const user = userCredential.user;
+      updateProfile(user, {
+        displayName: name,
+      });
+      return user;
+    },
+  );
 }
 
 export function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
 
-const provider = new GoogleAuthProvider();
 export const signInGoogle = () => {
-  return signInWithPopup(auth, provider)
-  .then((result) => {
-   const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    const user = result.user;
-  })
-  .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.email;
-      const credential = GoogleAuthProvider.credentialFromError(error);
-  })
+  const provider = new GoogleAuthProvider();
+  return signInWithPopup(auth, provider);
 };
 
-export const createPost = async (postText) => {
-  return addDoc(collection(db, 'post'), {
-    photo: current().photoURL,
-    displayName: current().displayName,
-    email: current().email,
-    data: new Date().toLocaleDateString('pt-BR'),
-    hour: new Date().toLocaleTimeString([], {timeStyle: 'short'}),
-    post: postText,
-    like: [],
-    user: current().uid,
-  })
-};
+export const createPost = (postText) => addDoc(collection(db, 'post'), {
+  photo: current().photoURL,
+  displayName: current().displayName,
+  email: current().email,
+  data: new Date().toLocaleDateString('pt-BR'),
+  hour: new Date().toLocaleTimeString([], { timeStyle: 'short' }),
+  post: postText,
+  like: [],
+  user: current().uid,
+});
 
 export async function getAllPosts() {
-  const collPost = query (collection(db, 'post'), orderBy ('data', 'desc'), orderBy ('hour', 'desc'));
+  const collPost = query(
+    collection(db, 'post'),
+    orderBy('data', 'desc'),
+    orderBy('hour', 'desc'),
+  );
   const postSnapshot = await getDocs(collPost);
-  const listPost = postSnapshot.docs.map(doc => {
-    const id = doc.id;
-    const data = doc.data();
+  const listPost = postSnapshot.docs.map((docColl) => {
+    const id = docColl.id;
+    const data = docColl.data();
     const post = {
-      id, 
+      id,
       ...data,
-    }
+    };
     return post;
   });
-  console.log(listPost)
   return listPost;
-};
+}
 
 export const deletePost = async (idPost) => {
-  const del = await deleteDoc(doc(db, 'post', idPost)); 
+  const del = await deleteDoc(doc(db, 'post', idPost));
   return del;
 };
 export const editPost = async (idPost, postText) => {
- await updateDoc(doc(db, 'post', idPost), {
-  post: postText,
- }); 
+  await updateDoc(doc(db, 'post', idPost), {
+    post: postText,
+  });
 };
 
 export async function getPostById(idPost) {
-  const post = await getDoc(doc(db, 'post', idPost)); 
+  const post = await getDoc(doc(db, 'post', idPost));
   return post.data();
 }
 
-export async function likePost (idPost) {
+export async function likePost(idPost) {
   const postId = await getPostById(idPost);
   const loggedUser = current().uid;
   let likes = postId.like;
   let liked;
   if (postId.like.includes(loggedUser)) {
     liked = false;
-    likes = likes.filter((id) => id !== loggedUser)
+    likes = likes.filter((id) => id !== loggedUser);
   } else {
     liked = true;
-    likes.push(loggedUser)
+    likes.push(loggedUser);
   }
   await updateDoc(doc(db, 'post', idPost), {
-    like: likes 
-  })
+    like: likes,
+  });
   return {
     liked,
-    count: likes.length
-  }
-};
+    count: likes.length,
+  };
+}
 
 export const logout = () => {
   const logoutUser = auth.signOut();
