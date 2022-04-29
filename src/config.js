@@ -1,5 +1,9 @@
+/* eslint-disable no-unused-vars */
+// eslint-disable-next-line
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js';
+// eslint-disable-next-line
 import { getAuth } from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js';
+// eslint-disable-next-line
 import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js';
 
 const firebaseConfig = {

@@ -1,3 +1,7 @@
+import {
+  logout,
+} from '/firebase.js'; //eslint-disable-line
+
 export default function AboutUs() {
   const aboutUs = document.createElement('div');
   aboutUs.classList.add('about-post');

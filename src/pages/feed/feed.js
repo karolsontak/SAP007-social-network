@@ -6,7 +6,7 @@ import {
   deletePost,
   likePost,
   editPost,
-} from '/firebase.js';
+} from '/firebase.js'; //eslint-disable-line
 
 export default function Feed() {
   const feed = document.createElement('div');
@@ -85,8 +85,8 @@ export default function Feed() {
                <button class="btn-del" data-no="true"> NÃO </button>
             </div>
           </div>
-        </li>`
-      }).join('')
+        </li>`;
+      }).join('');
       postList.innerHTML = postCreated;
 
       const postsElements = feed.querySelectorAll('.allposts');
@@ -94,21 +94,20 @@ export default function Feed() {
         post.addEventListener('click', (e) => {
           const id = e.currentTarget.dataset.id;
 
-          if(e.target.dataset.delete){
+          if (e.target.dataset.delete) {
             const modal = e.currentTarget.querySelector('.modal');
             modal.style.display = 'flex';
-          } else if(e.target.dataset.yes){
-              const modal = e.currentTarget.querySelector('.modal');
-              modal.style.display = 'none';
-              deletePost(id)
+          } else if (e.target.dataset.yes) {
+            const modal = e.currentTarget.querySelector('.modal');
+            modal.style.display = 'none';
+            deletePost(id)
               .then(() => {
-                post.remove(); 
-              })
-          } else if(e.target.dataset.no){
-              const modal = e.currentTarget.querySelector('.modal');
-              modal.style.display = 'none';
+                post.remove();
+              });
+          } else if (e.target.dataset.no) {
+            const modal = e.currentTarget.querySelector('.modal');
+            modal.style.display = 'none';
           }
-              
 
           if (e.target.dataset.like) {
             const likeCount = e.currentTarget.querySelector('.like-length');
@@ -128,8 +127,8 @@ export default function Feed() {
             const postEdit = feed.querySelector(`[data-idtext="${id}"]`);
             const btnsEdit = postEdit.nextElementSibling;
             postEdit.contentEditable = true;
-            btnsEdit.style.display = "flex";       
-          } else if(e.target.dataset.cancel) {
+            btnsEdit.style.display = 'flex';
+          } else if (e.target.dataset.cancel) {
             const postEdit = feed.querySelector(`[data-idtext="${id}"]`);
             const buttonsEdit = postEdit.nextElementSibling;
             postEdit.contentEditable = false;

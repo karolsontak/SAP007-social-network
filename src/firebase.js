@@ -1,10 +1,23 @@
-/* eslint-disable no-unused-vars */
-// eslint-disable-next-line
-import {createUserWithEmailAndPassword,signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,onAuthStateChanged,updateProfile,} from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
-// eslint-disable-next-line
-import {collection,addDoc,getDocs,doc,query,orderBy,updateDoc,deleteDoc,getDoc,} from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
-// eslint-disable-next-line
-import { auth, db } from "/config.js";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+  updateProfile,
+} from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js'; //eslint-disable-line
+import {
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  query,
+  orderBy,
+  updateDoc,
+  deleteDoc,
+  getDoc,
+} from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js'; //eslint-disable-line
+import { auth, db } from "/config.js"; //eslint-disable-line
 
 export const current = () => {
   const user = auth.currentUser;
@@ -12,17 +25,15 @@ export const current = () => {
 };
 
 export function registerUser(name, email, password) {
-  return createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+  return createUserWithEmailAndPassword(auth, email, password).then(
+    (userCredential) => {
       const user = userCredential.user;
-      const photoUser = "./img/anonimo.png";
       updateProfile(user, {
         displayName: name,
-        photo: photoUser,
       });
       return user;
-    })
-    .catch((error) => {});
+    },
+  );
 }
 
 export function signIn(email, password) {
@@ -30,42 +41,33 @@ export function signIn(email, password) {
 }
 
 const provider = new GoogleAuthProvider();
-export const signInGoogle = () =>
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      const user = result.user;
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.email;
-      const credential = GoogleAuthProvider.credentialFromError(error);
-    });
+export const signInGoogle = () => {
+  signInWithPopup(auth, provider);
+};
 
-export const createPost = async (postText) =>
-  addDoc(collection(db, "post"), {
+export const createPost = async (postText) => {
+  addDoc(collection(db, 'post'), {
     photo: current().photoURL,
     displayName: current().displayName,
     email: current().email,
-    data: new Date().toLocaleDateString("pt-BR"),
-    hour: new Date().toLocaleTimeString([], { timeStyle: "short" }),
+    data: new Date().toLocaleDateString('pt-BR'),
+    hour: new Date().toLocaleTimeString([], { timeStyle: 'short' }),
     post: postText,
     like: [],
     user: current().uid,
   });
+};
 
 export async function getAllPosts() {
   const collPost = query(
-    collection(db, "post"),
-    orderBy("data", "desc"),
-    orderBy("hour", "desc")
+    collection(db, 'post'),
+    orderBy('data', 'desc'),
+    orderBy('hour', 'desc'),
   );
   const postSnapshot = await getDocs(collPost);
-  const listPost = postSnapshot.docs.map((doc) => {
-    const id = doc.id;
-    const data = doc.data();
+  const listPost = postSnapshot.docs.map((docColl) => {
+    const id = docColl.id;
+    const data = docColl.data();
     const post = {
       id,
       ...data,
@@ -76,17 +78,17 @@ export async function getAllPosts() {
 }
 
 export const deletePost = async (idPost) => {
-  const del = await deleteDoc(doc(db, "post", idPost));
+  const del = await deleteDoc(doc(db, 'post', idPost));
   return del;
 };
 export const editPost = async (idPost, postText) => {
-  await updateDoc(doc(db, "post", idPost), {
+  await updateDoc(doc(db, 'post', idPost), {
     post: postText,
   });
 };
 
 export async function getPostById(idPost) {
-  const post = await getDoc(doc(db, "post", idPost));
+  const post = await getDoc(doc(db, 'post', idPost));
   return post.data();
 }
 
@@ -102,7 +104,7 @@ export async function likePost(idPost) {
     liked = true;
     likes.push(loggedUser);
   }
-  await updateDoc(doc(db, "post", idPost), {
+  await updateDoc(doc(db, 'post', idPost), {
     like: likes,
   });
   return {

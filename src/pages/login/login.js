@@ -1,7 +1,7 @@
 import {
   signIn,
   signInGoogle,
-} from '/firebase.js';
+} from '/firebase.js'; //eslint-disable-line
 
 export default function Login() {
   const login = document.createElement('div');
@@ -14,8 +14,8 @@ export default function Login() {
         </div>
               
         <form class="login-form">
-          <input class="login-input" id="email" type="email" placeholder="E-MAIL" required>
-          <input class="login-input" id="password" type="password" placeholder="SENHA" required>
+          <input class="login-input email" type="email" placeholder="E-MAIL" required>
+          <input class="login-input password" type="password" placeholder="SENHA" required>
           <p id="loginError" class="error-message"></p>
         </form>
   
@@ -35,8 +35,8 @@ export default function Login() {
   const signUpButton = login.querySelector('#signup-button');
   const signInButton = login.querySelector('#signin-button');
   const googleBtn = login.querySelector('#google-button');
-  const email = login.querySelector('#email');
-  const password = login.querySelector('#password');
+  const email = login.querySelector('.email');
+  const password = login.querySelector('.password');
   const loginError = login.querySelector('#loginError');
 
   signUpButton.addEventListener('click', (e) => {
@@ -68,13 +68,6 @@ export default function Login() {
     signInGoogle()
       .then(() => {
         window.location.hash = 'feed';
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        if (errorCode === 'auth/account-exists-with-different-credential') {
-        // eslint-disable-next-line no-alert
-          alert('Essa conta já existe com uma credencial diferente');
-        }
       });
   });
 

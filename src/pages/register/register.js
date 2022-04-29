@@ -1,4 +1,6 @@
-import { registerUser } from '/firebase.js';
+import {
+  registerUser,
+} from '/firebase.js'; //eslint-disable-line
 
 export default function Register() {
   const register = document.createElement('div');
@@ -11,9 +13,9 @@ export default function Register() {
         </div>
                 
         <form class="register-form">
-          <input class="register-input" id="name" type="name" placeholder="NOME COMPLETO" required/>
-          <input class="register-input" id="email" type="email" placeholder="E-MAIL" required/>                    
-          <input class="register-input" id="password" type="password" placeholder="SENHA" required/>
+          <input class="register-input name" type="name" placeholder="NOME COMPLETO" required/>
+          <input class="register-input email" type="email" placeholder="E-MAIL" required/>                    
+          <input class="register-input password" type="password" placeholder="SENHA" required/>
           <p id="error-message" class="error-message"></p>
         </form>
 
@@ -24,10 +26,9 @@ export default function Register() {
       </main>
     `;
 
-  const name = register.querySelector('#name');
-  const photo = register.querySelector('#photo-ano');
-  const email = register.querySelector('#email');
-  const password = register.querySelector('#password');
+  const name = register.querySelector('.name');
+  const email = register.querySelector('.email');
+  const password = register.querySelector('.password');
   const errorMessage = register.querySelector('#error-message');
 
   const gobackButton = register.querySelector('#gobackButton');
@@ -36,12 +37,10 @@ export default function Register() {
     window.location.hash = 'home';
   });
 
-  const signUpButtonRegister = register.querySelector(
-    '#register-button',
-  );
+  const signUpButtonRegister = register.querySelector('#register-button');
   signUpButtonRegister.addEventListener('click', (e) => {
     e.preventDefault();
-    if (name.value, email.value, password.value) {
+    if (name.value && email.value && password.value) {
       registerUser(name.value, email.value, password.value)
         .then(() => {
           window.location.hash = 'feed';
