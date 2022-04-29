@@ -10,6 +10,12 @@ jest.mock('../src/firebase.js');
 jest.mock('../src/export.js');
 
 describe('registerUser', () => {
+  it('Deverá ser uma função', () => {
+    expect(typeof registerUser).toBe('function');
+  });
+});
+
+describe('registerUser', () => {
   it('Deverá registrar corretamente', () => {
     registerUser.mockResolvedValueOnce();
         const name = 'Jesus Amado';
@@ -29,6 +35,12 @@ describe('registerUser', () => {
 
     expect(registerUser).toHaveBeenCalledWith(name, email, password);
     expect(registerUser).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('signIn', () => {
+  it('Deverá ser uma função', () => {
+    expect(typeof signIn).toBe('function');
   });
 });
 
