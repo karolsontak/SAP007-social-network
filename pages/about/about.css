@@ -1,0 +1,97 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
+  background-size: cover;
+  background-color: #1e1e1eee;
+}
+
+.menu {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  height: 20px;
+  font-size: 14px;
+  padding: 5%;
+  border-radius: 5px;
+  background-color: rgb(52, 52, 52);
+  color: white;
+  position: fixed;
+  bottom: 0;
+}
+
+.home-btn, .perfil-btn, .dev-btn, .logout-btn {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  background: #e335dc;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.507);
+  padding: 2%;
+}
+
+.daiane, .karol, .suelen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3%;
+}
+
+.name {
+  color: white;
+  margin: 2%;
+}
+
+.all-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  box-shadow: 0 0 2em rgba(0, 0, 0, 0.507);
+  margin-bottom: 2%;
+}
+
+.link-github {
+  text-decoration:none;
+  color: #00d092;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+/* TELAS GRANDES */
+  @media screen and (min-width: 768px) {
+    .menu {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      width: 3%;
+      height: 93%;
+      padding: 2%;
+    }
+
+    .about-us {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .title-container {
+      margin-bottom: 0;
+      width: 15%;
+      background: #e335dc;
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.507);
+      padding: 1%;
+    }
+    
+    .daiane, .karol, .suelen {
+      margin-bottom: -4%;
+  }
+}
