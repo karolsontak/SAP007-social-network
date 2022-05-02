@@ -13,10 +13,10 @@ export default function Feed() {
   feed.classList.add('feed-post');
   feed.innerHTML = `  
       <nav class="menu">
-        <img id="home-btn" class="home-btn" alt="menu home" src="./img/home.png">
-        <img id="perfil-btn" class="perfil-btn" alt="menu perfil" src="./img/perfil.png">
-        <img id="dev-btn" class="dev-btn" alt="menu desenvolvedoras" src="./img/dev.png">
-        <img id="logout-btn" class="logout-btn" alt="menu logout" src="./img/logout.png">
+        <img class="photoPerfil" alt="menu perfil" src="${current().photoURL}">
+        <img class="home-btn" alt="menu home" src="./img/home.png">
+        <img class="dev-btn" alt="menu desenvolvedoras" src="./img/dev.png">
+        <img class="logout-btn" alt="menu logout" src="./img/logout.png">
       </nav>
 
       <img id="add-post" class="add-post" alt="adicionar post" src="./img/add.png">
@@ -35,9 +35,9 @@ export default function Feed() {
     `;
 
   const addPost = feed.querySelector('#add-post');
-  const homeBtn = feed.querySelector('#home-btn');
-  const devBtn = feed.querySelector('#dev-btn');
-  const logoutBtn = feed.querySelector('#logout-btn');
+  const homeBtn = feed.querySelector('.home-btn');
+  const devBtn = feed.querySelector('.dev-btn');
+  const logoutBtn = feed.querySelector('.logout-btn');
   const modalPost = feed.querySelector('#post');
   const postBtn = feed.querySelector('#post-btn');
   const closePost = feed.querySelector('#close-post');
@@ -146,6 +146,7 @@ export default function Feed() {
       });
 
       addPost.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         modalPost.style.display = 'block';
         addPost.style.display = 'none';
       });

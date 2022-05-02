@@ -1,17 +1,18 @@
 import {
   logout,
-} from '/firebase.js'; //eslint-disable-line
+  current,
+} from '../../firebase.js'; //eslint-disable-line
 
 export default function AboutUs() {
   const aboutUs = document.createElement('div');
   aboutUs.classList.add('about-post');
   aboutUs.innerHTML = `  
-        <nav class="menu">
-          <img id="home-btn" class="home-btn" alt="menu home" src="./img/home.png">
-          <img id="perfil-btn" class="perfil-btn" alt="menu perfil" src="./img/perfil.png">
-          <img id="dev-btn" class="dev-btn" alt="menu desenvolvedoras" src="./img/dev.png">
-          <img id="logout-btn" class="logout-btn" alt="menu logout" src="./img/logout.png">
-        </nav>
+          <nav class="menu">
+            <img class="photoPerfil" alt="menu perfil" src="${current().photoURL}">
+            <img class="home-btn" alt="menu home" src="./img/home.png">
+            <img class="dev-btn" alt="menu desenvolvedoras" src="./img/dev.png">
+            <img class="logout-btn" alt="menu logout" src="./img/logout.png">
+          </nav>
          
         <section id="about-us" class="about-us">
             <p class="title-container"><b> Desenvolvido por: </b></p>
@@ -33,9 +34,9 @@ export default function AboutUs() {
         </section>
     `;
 
-  const homeBtn = aboutUs.querySelector('#home-btn');
-  const devBtn = aboutUs.querySelector('#dev-btn');
-  const logoutBtn = aboutUs.querySelector('#logout-btn');
+  const homeBtn = aboutUs.querySelector('.home-btn');
+  const devBtn = aboutUs.querySelector('.dev-btn');
+  const logoutBtn = aboutUs.querySelector('.logout-btn');
 
   homeBtn.addEventListener('click', (e) => {
     e.preventDefault();
