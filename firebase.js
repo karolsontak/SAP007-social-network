@@ -44,7 +44,7 @@ export const createPost = (postText) => addDoc(collection(db, 'post'), {
   photo: current().photoURL,
   displayName: current().displayName,
   email: current().email,
-  data: new Date().toLocaleDateString('pt-BR'),
+  data: new Date(),
   hour: new Date().toLocaleTimeString([], { timeStyle: 'short' }),
   post: postText,
   like: [],
