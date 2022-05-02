@@ -50,8 +50,8 @@ export default function AboutUs() {
 
   logoutBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    logout();
-    window.location.hash = 'login';
+    logout()
+      .then(() => { window.location.hash = 'login'; });
   });
 
   return aboutUs;
