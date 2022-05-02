@@ -1,6 +1,6 @@
 import {
   logout,
-} from '/firebase.js'; //eslint-disable-line
+} from '../../firebase.js'; //eslint-disable-line
 
 export default function AboutUs() {
   const aboutUs = document.createElement('div');
