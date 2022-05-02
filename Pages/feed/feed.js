@@ -6,7 +6,7 @@ import {
   deletePost,
   likePost,
   editPost,
-} from '/firebase.js'; //eslint-disable-line
+} from '../../firebase.js';
 
 export default function Feed() {
   const feed = document.createElement('div');
